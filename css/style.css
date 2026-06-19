@@ -1,0 +1,214 @@
+:root{
+--primary:#1F3D32;
+--gold:#D4AF37;
+--light:#F8F5EF;
+--dark:#151515;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter,sans-serif;
+background:var(--light);
+color:#333;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+
+}
+
+.logo img{
+    width:auto;
+    height:60px;
+    
+    object-fit:contain;
+    display:block;
+}
+h1,h2,h3{
+font-family:'Cormorant Garamond',serif;
+}
+
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:white;
+z-index:1000;
+}
+
+.menu{
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+.menu a{
+text-decoration:none;
+color:#333;
+}
+
+.hero{
+height:100vh;
+background:url('../assets/hero.jpg')
+center center/cover;
+display:flex;
+align-items:center;
+position:relative;
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.55);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:700px;
+margin-left:8%;
+color:white;
+}
+
+.hero h1{
+font-size:5rem;
+margin:20px 0;
+}
+
+.btn-primary{
+background:var(--gold);
+padding:15px 30px;
+color:black;
+text-decoration:none;
+}
+
+.btn-secondary{
+border:2px solid white;
+padding:15px 30px;
+color:white;
+text-decoration:none;
+}
+
+.about,
+.specialties,
+.gallery,
+.testimonials,
+.reservation,
+.lodging{
+padding:120px 8%;
+}
+
+.container{
+display:flex;
+align-items:center;
+gap:60px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:50px;
+}
+
+.card{
+background:white;
+padding:40px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.gallery-grid img{
+width:100%;
+height:300px;
+object-fit:cover;
+}
+
+.reservation form{
+max-width:600px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+input{
+padding:15px;
+}
+
+button{
+background:var(--primary);
+color:white;
+border:none;
+padding:15px;
+cursor:pointer;
+}
+
+footer{
+background:#111;
+color:white;
+padding:60px;
+text-align:center;
+}
+
+.whatsapp{
+position:fixed;
+bottom:25px;
+right:25px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:#25D366;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+text-decoration:none;
+color:white;
+}
+
+.reveal{
+opacity:0;
+transform:translateY(50px);
+transition:1s;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+.menu{
+display:none;
+}
+
+.hero h1{
+font-size:3rem;
+}
+
+.container{
+flex-direction:column;
+}
+
+.gallery-grid{
+grid-template-columns:1fr;
+}
+
+}
