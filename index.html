@@ -479,7 +479,7 @@
 
         <input type="tel" name="telefono" placeholder="Teléfono" required>
 
-        <input type="date" name="fecha" required>
+        <input type="text" name="fecha" placeholder="Fecha de reserva" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" required>
 
         <input type="number" name="personas" placeholder="Número de personas" min="1" required>
 

@@ -545,6 +545,20 @@ input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+input[type="date"] {
+  min-height: 56px;
+  font-family: inherit;
+  color: #333;
+}
+
+/* Alinear contenido en campos de fecha en iOS/Safari */
+input[type="date"]::-webkit-datetime-edit {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+
 input:focus {
   outline: none;
   border-color: var(--gold);
