@@ -778,3 +778,910 @@ footer p {
     height: 60px;
   }
 }
+/* ACORDEÓN DE ESPECIALIDADES / MENÚ*/
+
+.accordion-container {
+    max-width: 900px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.accordion-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.accordion-item:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 22px 28px;
+    background: white;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: #F8F5EF;
+}
+
+.accordion-title-group h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin: 0;
+    font-weight: 600;
+}
+
+.accordion-title-group p {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 4px 0 0 0;
+    font-family: Inter, sans-serif;
+}
+
+.accordion-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+    background: var(--gold);
+    color: var(--dark);
+}
+
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+    padding: 0 28px;
+}
+
+.accordion-item.active .accordion-body {
+    max-height: 800px;
+    padding: 0 28px 28px 28px;
+}
+
+/* Lista de platos */
+.dish-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dish-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px dashed #e0e0e0;
+    transition: background 0.2s ease;
+    gap: 16px;
+}
+
+.dish-item:last-child {
+    border-bottom: none;
+}
+
+.dish-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+    display: block;
+}
+
+.dish-desc {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 4px;
+    display: block;
+    line-height: 1.4;
+}
+
+.dish-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.15rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.dish-item:hover .dish-name {
+    color: var(--primary);
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-family: Inter, sans-serif;
+    vertical-align: middle;
+}
+
+.badge.recommended {
+    background: var(--gold);
+    color: var(--dark);
+}
+
+.badge.new {
+    background: var(--primary);
+    color: white;
+}
+
+/*Nota al pie */
+.menu-note {
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+    margin-top: 24px;
+}
+
+/*  Responsive */
+@media (max-width: 768px) {
+    .accordion-header {
+        padding: 18px 20px;
+    }
+
+    .accordion-title-group h3 {
+        font-size: 1.25rem;
+    }
+
+    .accordion-body,
+    .accordion-item.active .accordion-body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .accordion-item.active .accordion-body {
+        padding-bottom: 20px;
+    }
+
+    .dish-item {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .dish-price {
+        align-self: flex-end;
+    }
+}
+/* ============================================
+   CARRUSEL DE HOSPEDAJE
+   ============================================ */
+
+.lodging {
+    background: linear-gradient(135deg, var(--primary) 0%, #2a4f40 100%);
+    color: white;
+    padding: 120px 8%;
+}
+
+.lodging-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.lodging-text h2 {
+    color: white;
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 3rem;
+}
+
+.lodging-text > p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.95;
+    margin-bottom: 30px;
+}
+
+.lodging-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 35px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lodging-features li {
+    font-size: 1rem;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-lodging {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.btn-lodging:hover {
+    background: #c4a030;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* ---------- Carrusel ---------- */
+.lodging-carousel-wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    grid-column: 2;
+    grid-row: 1 / 3;
+}
+
+.lodging-carousel {
+    position: relative;
+    width: 100%;
+    height: 680px;
+    overflow: hidden;
+}
+
+.lodging-slide {
+    position: absolute;
+    inset: 0;
+    background-position: center center;
+    background-size: cover;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1s ease-in-out, transform 8s ease-out;
+}
+
+.lodging-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Degradado inferior para legibilidad del texto */
+.lodging-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(31, 61, 50, 0.75) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+/* Caption sobre la imagen */
+.lodging-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 35px 30px;
+    z-index: 3;
+    color: white;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.6s ease 0.3s;
+}
+
+.lodging-slide.active .lodging-caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.lodging-caption h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    margin: 0 0 6px 0;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.lodging-caption p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* Controles flecha */
+.lodging-ctrl {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.lodging-ctrl:hover {
+    background: rgba(212, 175, 55, 0.85);
+    border-color: var(--gold);
+    color: var(--dark);
+}
+
+.lodging-prev {
+    left: 20px;
+}
+
+.lodging-next {
+    right: 20px;
+}
+
+/* Dots */
+.lodging-dots {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 10px;
+}
+
+.lodging-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.lodging-dot.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: scale(1.2);
+}
+
+.lodging-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Miniaturas debajo del carrusel */
+.lodging-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    grid-column: 2;
+    justify-content: center;
+}
+
+.lodging-thumb {
+    width: 85px;
+    height: 60px;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.55;
+    transition: all 0.3s ease;
+}
+
+.lodging-thumb.active,
+.lodging-thumb:hover {
+    opacity: 1;
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+/*RESPONSIVE HOSPEDAJE*/
+
+@media (max-width: 768px) {
+    .lodging-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .lodging-text h2 {
+        text-align: center;
+        font-size: 2.2rem;
+    }
+
+    .lodging-text > p {
+        text-align: center;
+    }
+
+    .lodging-features {
+        align-items: center;
+    }
+
+    .lodging-features li {
+        justify-content: center;
+    }
+
+    .btn-lodging {
+        display: block;
+        text-align: center;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .lodging-carousel-wrap {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .lodging-carousel {
+        height: 580px;
+    }
+
+    .lodging-caption {
+        padding: 24px 20px 20px;
+    }
+
+    .lodging-caption h4 {
+        font-size: 1.25rem;
+    }
+
+    .lodging-ctrl {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+
+    .lodging-prev {
+        left: 10px;
+    }
+
+    .lodging-next {
+        right: 10px;
+    }
+
+    .lodging-thumbs {
+        grid-column: 1;
+        gap: 6px;
+    }
+
+    .lodging-thumb {
+        width: 60px;
+        height: 42px;
+    }
+}
+/*SECCIÓN EVENTOS */
+
+.events {
+    background: var(--light);
+    padding: 120px 8%;
+}
+
+.events-header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.events-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.events-header p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Grid de eventos  */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tarjeta base */
+.event-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 320px;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
+}
+
+/* Tarjeta grande (Bodas) */
+.event-card.large {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: auto;
+}
+
+/* Tarjeta alta (Reuniones) */
+.event-card.tall {
+    grid-row: span 2;
+    height: auto;
+}
+
+.event-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.event-card:hover img {
+    transform: scale(1.08);
+}
+
+/* Overlay con info */
+.event-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(31, 61, 50, 0.88) 0%, rgba(31, 61, 50, 0.25) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+    transition: background 0.4s ease;
+}
+
+.event-card:hover .event-overlay {
+    background: linear-gradient(to top, rgba(31, 61, 50, 0.95) 0%, rgba(31, 61, 50, 0.45) 65%, transparent 100%);
+}
+
+/* Etiqueta dorada */
+.event-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    width: fit-content;
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-tag {
+    transform: translateY(-2px);
+}
+
+.event-overlay h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.event-overlay p {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Botón CTA */
+.event-cta {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.event-cta a {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.event-cta a:hover {
+    background: var(--gold);
+    color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* RESPONSIVE EVENTOS*/
+
+@media (max-width: 992px) {
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .event-card.large {
+        grid-column: span 2;
+        grid-row: span 1;
+        height: 300px;
+    }
+
+    .event-card.tall {
+        grid-row: span 1;
+        height: 300px;
+    }
+
+    .event-card {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .events {
+        padding: 80px 5%;
+    }
+
+    .events-header h2 {
+        font-size: 2.2rem;
+    }
+
+    .events-header p {
+        font-size: 1rem;
+    }
+
+    .event-overlay {
+        padding: 20px;
+    }
+
+    .event-overlay h3 {
+        font-size: 1.25rem;
+    }
+
+    .event-overlay p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .event-card.large {
+        grid-column: span 1;
+        height: 280px;
+    }
+
+    .event-card {
+        height: 280px;
+    }
+
+    .event-cta a {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+/* LIGHTBOX - GALERÍA PANTALLA COMPLETA*/
+
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.94);
+    backdrop-filter: blur(14px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-img-wrap {
+    position: relative;
+    max-width: 88vw;
+    max-height: 82vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    transform: scale(0.92);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+.lightbox-overlay.active .lightbox-img {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Botón cerrar */
+.lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-close:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--dark);
+    transform: rotate(90deg);
+}
+
+/* Flechas navegación */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-nav:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--dark);
+}
+
+.lightbox-prev {
+    left: 28px;
+}
+
+.lightbox-next {
+    right: 28px;
+}
+
+/* Contador */
+.lightbox-counter {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    z-index: 10;
+    font-family: Inter, sans-serif;
+}
+
+/* Caption */
+.lightbox-caption {
+    position: absolute;
+    bottom: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    text-align: center;
+    max-width: 600px;
+    padding: 0 24px;
+    z-index: 10;
+    font-family: Inter, sans-serif;
+}
+
+/* Responsive lightbox */
+@media (max-width: 768px) {
+    .lightbox-nav {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+    }
+
+    .lightbox-prev {
+        left: 10px;
+    }
+
+    .lightbox-next {
+        right: 10px;
+    }
+
+    .lightbox-close {
+        top: 14px;
+        right: 14px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.4rem;
+    }
+
+    .lightbox-img {
+        max-height: 70vh;
+    }
+
+    .lightbox-caption {
+        font-size: 0.9rem;
+        bottom: 58px;
+    }
+}
