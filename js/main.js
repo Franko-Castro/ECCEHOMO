@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Construir enlace de WhatsApp 
 
-        const urlWhatsApp = `https://wa.me/573107404775?text=${encodeURIComponent(mensaje)}`;
+        const urlWhatsApp = `https://wa.me/573107404575?text=${encodeURIComponent(mensaje)}`;
 
         // Abrir WhatsApp en una nueva pestaña
         window.open(urlWhatsApp, '_blank');
