@@ -421,3 +421,31 @@ if (galleryImages.length > 0 && lightbox) {
     if (e.key === 'ArrowLeft') prevLightbox();
   });
 }
+
+// ---------- 10. Toggle de Galería (Ver más / Ver menos) ----------
+const galleryGrid = document.querySelector('.gallery-grid');
+const galleryToggleBtn = document.getElementById('galleryToggleBtn');
+
+if (galleryGrid && galleryToggleBtn) {
+  galleryToggleBtn.addEventListener('click', () => {
+    const isExpanded = galleryGrid.classList.toggle('expanded');
+    galleryToggleBtn.classList.toggle('active');
+    
+    const btnText = galleryToggleBtn.querySelector('.btn-text');
+    const btnIcon = galleryToggleBtn.querySelector('.btn-icon');
+    
+    if (isExpanded) {
+      btnText.textContent = 'Ver menos';
+      btnIcon.textContent = '▲';
+    } else {
+      btnText.textContent = 'Ver más';
+      btnIcon.textContent = '▼';
+      
+      // Hacer scroll suave hacia la galería si se contrae
+      const gallerySection = document.getElementById('galeria');
+      if (gallerySection) {
+        gallerySection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+}

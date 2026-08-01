@@ -478,6 +478,68 @@ h2 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
+/* Ocultar imágenes después de la sexta por defecto */
+.gallery-grid img:nth-child(n+7) {
+  display: none;
+  opacity: 0;
+}
+
+/* Mostrar cuando esté expandido */
+.gallery-grid.expanded img:nth-child(n+7) {
+  display: block;
+  animation: fadeInDown 0.5s ease forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón de ver más en Galería */
+.gallery-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn-gallery-toggle {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 24px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-gallery-toggle:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(31, 61, 50, 0.15);
+}
+
+.btn-gallery-toggle .btn-icon {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-gallery-toggle.active .btn-icon {
+  transform: rotate(180deg);
+}
+
 /* ---------- Testimonios ---------- */
 .testimonials {
   background: white;
@@ -716,17 +778,7 @@ footer p {
   }
 
   .carousel-control {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .carousel-prev {
-    left: 15px;
-  }
-
-  .carousel-next {
-    right: 15px;
+    display: none;
   }
 
   .container {
