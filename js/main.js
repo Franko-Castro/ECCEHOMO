@@ -169,7 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  // ---------- . Botón de reserva ----------
+  // ---------- 
+  // . Botón de reserva ----------
   const reservaForm = document.querySelector('.reservation form');
   if (reservaForm) {
     reservaForm.addEventListener('submit', function (e) {

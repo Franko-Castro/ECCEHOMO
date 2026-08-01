@@ -960,6 +960,86 @@ footer p {
     font-size: 0.9rem;
     margin-top: 24px;
 }
+ /* ============================================
+   DESCARGAR MENÚ PDF
+   ============================================ */
+
+.menu-download {
+    max-width: 900px;
+    margin: 60px auto 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #2a4f40 100%);
+    border-radius: 12px;
+    padding: 40px 50px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 15px 40px rgba(31, 61, 50, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.menu-download-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menu-download-icon svg {
+    width: 32px;
+    height: 32px;
+    color: var(--gold);
+}
+
+.menu-download-text {
+    flex: 1;
+}
+
+.menu-download-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: white;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.menu-download-text p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 14px 28px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.btn-download svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-download:hover {
+    background: #c4a030;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+}
 
 /*  Responsive */
 @media (max-width: 768px) {
@@ -989,10 +1069,30 @@ footer p {
     .dish-price {
         align-self: flex-end;
     }
+  
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .menu-download {
+        flex-direction: column;
+        text-align: center;
+        padding: 35px 28px;
+        gap: 24px;
+    }
+
+    .menu-download-text h3 {
+        font-size: 1.4rem;
+    }
+
+    .btn-download {
+        width: 100%;
+        justify-content: center;
+    }
 }
-/* ============================================
+}
+/* 
    CARRUSEL DE HOSPEDAJE
-   ============================================ */
+   */
 
 .lodging {
     background: linear-gradient(135deg, var(--primary) 0%, #2a4f40 100%);
