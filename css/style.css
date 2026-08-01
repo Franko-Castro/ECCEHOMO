@@ -165,7 +165,6 @@ h2 {
 .hero-carousel {
   position: absolute;
   inset: 0;
-  z-index: 1;
 }
 
 /* Cada slide */
@@ -177,6 +176,7 @@ h2 {
   opacity: 0;
   transform: scale(1.05);
   transition: opacity 1.2s ease-in-out, transform 8s ease-out;
+  z-index: 1;
 }
 
 .carousel-slide.active {

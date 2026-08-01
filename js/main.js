@@ -77,6 +77,40 @@ document.addEventListener('DOMContentLoaded', function () {
     prevBtn.addEventListener('click', prevSlide);
   }
 
+  // Soporte para gestos táctiles (swipe) en dispositivos móviles para el carrusel principal
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    heroSection.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    heroSection.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+      
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+      
+      // Comprobar que sea un deslizamiento predominantemente horizontal
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        const threshold = 50; // Umbral de 50px
+        if (Math.abs(diffX) > threshold) {
+          if (diffX > 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
   // Iniciar carrusel automático
   startInterval();
 
