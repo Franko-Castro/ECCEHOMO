@@ -512,15 +512,17 @@ h2 {
   background: transparent;
   border: 2px solid var(--primary);
   color: var(--primary);
-  padding: 10px 24px;
+  padding: 12px 26px;
   font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  min-width: 180px;
   transition: all 0.3s ease;
 }
 
@@ -799,11 +801,15 @@ footer p {
   }
 
   .gallery-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .gallery-grid img {
     height: 250px;
+  }
+
+  .btn-gallery-toggle {
+    min-width: 170px;
   }
 
   h2 {
@@ -832,6 +838,10 @@ footer p {
 
   .hero-buttons {
     flex-direction: column;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
   }
 
   .btn-primary,
