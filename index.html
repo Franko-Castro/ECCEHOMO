@@ -1,578 +1,740 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Eccehomo Asadero y Restaurante</title>
 
-    <meta name="description" content="Restaurante campestre, hospedaje, eventos y gastronomía premium en Eccehomo.">
+    <meta
+      name="description"
+      content="Restaurante campestre, hospedaje, eventos y gastronomía premium en Eccehomo."
+    />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
 
-    <base target="_blank">
-</head>
+    <base target="_blank" />
+  </head>
 
-<body>
-
+  <body>
     <header>
+      <nav class="navbar">
+        <div class="logo">
+          <a href="#inicio" target="_self">
+            <img src="imagenes/logo2.png" alt="Eccehomo" />
+          </a>
+        </div>
 
-        <nav class="navbar">
+        <!-- Botón hamburguesa para móvil -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-            <div class="logo">
-                <a href="#inicio" target="_self">
-                    <img src="imagenes/logo2.png" alt="Eccehomo">
-                </a>
-            </div>
+        <ul class="menu" id="menu">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#menu-section">Menú</a></li>
+          <li><a href="#hospedaje">Hospedaje</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+          <!-- NUEVO -->
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
 
-            <!-- Botón hamburguesa para móvil -->
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <ul class="menu" id="menu">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#menu-section">Menú</a></li>
-                <li><a href="#hospedaje">Hospedaje</a></li>
-                <li><a href="#eventos">Eventos</a></li> <!-- NUEVO -->
-                <li><a href="#galeria">Galería</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-
-            <a href="#reservas" class="btn-reserva">
-                Reservar
-            </a>
-
-        </nav>
-
+        <a href="#reservas" class="btn-reserva"> Reservar </a>
+      </nav>
     </header>
 
     <section id="inicio" class="hero">
+      <!-- Carrusel de fondo -->
+      <div class="hero-carousel" id="heroCarousel">
+        <div
+          class="carousel-slide active"
+          style="background-image: url(&quot;imagenes/stecy.jpeg&quot;)"
+        ></div>
+        <div
+          class="carousel-slide"
+          style="background-image: url(&quot;imagenes/nanis1.jpeg&quot;)"
+        ></div>
+        <div
+          class="carousel-slide"
+          style="background-image: url(&quot;imagenes/picni1.jpeg&quot;)"
+        ></div>
+        <div
+          class="carousel-slide"
+          style="background-image: url(&quot;imagenes/picnic.jpeg&quot;)"
+        ></div>
+        <div
+          class="carousel-slide"
+          style="background-image: url(&quot;imagenes/cielo.jpeg&quot;)"
+        ></div>
+        <div
+          class="carousel-slide"
+          style="
+            background-image: url(&quot;imagenes/vista de la naturaleza.jpeg&quot;);
+          "
+        ></div>
 
-        <!-- Carrusel de fondo -->
-        <div class="hero-carousel" id="heroCarousel">
-            <div class="carousel-slide active" style="background-image: url('imagenes/stecy.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('imagenes/nanis1.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('imagenes/picni1.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('imagenes/picnic.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('imagenes/cielo.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('imagenes/vista de la naturaleza.jpeg');"></div>
+        <!-- Overlay oscuro -->
+        <div class="overlay"></div>
 
-            <!-- Overlay oscuro -->
-            <div class="overlay"></div>
+        <!-- Controles del carrusel -->
+        <button
+          class="carousel-control carousel-prev"
+          id="carouselPrev"
+          aria-label="Anterior"
+        >
+          &#10094;
+        </button>
+        <button
+          class="carousel-control carousel-next"
+          id="carouselNext"
+          aria-label="Siguiente"
+        >
+          &#10095;
+        </button>
 
-            <!-- Controles del carrusel -->
-            <button class="carousel-control carousel-prev" id="carouselPrev" aria-label="Anterior">&#10094;</button>
-            <button class="carousel-control carousel-next" id="carouselNext" aria-label="Siguiente">&#10095;</button>
+        <!-- Indicadores (dots) -->
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
 
-            <!-- Indicadores (dots) -->
-            <div class="carousel-dots" id="carouselDots"></div>
+      <div class="hero-content">
+        <span>ASADERO Y RESTAURANTE</span>
+
+        <h1>Tradición y sabor en medio de la naturaleza</h1>
+
+        <p>
+          Disfruta de cortes premium, platos típicos, eventos especiales y
+          hospedaje en un entorno único.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#reservas" class="btn-primary"> Reservar Mesa </a>
+
+          <a href="#menu-section" class="btn-secondary"> Ver Menú </a>
         </div>
-
-        <div class="hero-content">
-
-            <span>ASADERO Y RESTAURANTE</span>
-
-            <h1>
-                Tradición y sabor
-                en medio de la naturaleza
-            </h1>
-
-            <p>
-                Disfruta de cortes premium, platos típicos,
-                eventos especiales y hospedaje en un entorno único.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#reservas" class="btn-primary">
-                    Reservar Mesa
-                </a>
-
-                <a href="#menu-section" class="btn-secondary">
-                    Ver Menú
-                </a>
-
-            </div>
-
-        </div>
-
+      </div>
     </section>
 
     <section id="nosotros" class="about reveal">
-
-        <div class="container">
-
-            <div class="about-image">
-                <img src="imagenes/historia1.webp" alt="Instalaciones del restaurante Eccehomo">
-            </div>
-
-            <div class="about-text">
-
-                <h2>Nuestra Historia</h2>
-
-                <p>
-                    Eccehomo nace de la pasión por la gastronomía,
-                    la tradición familiar y el amor por la naturaleza.
-                    Ofrecemos una experiencia culinaria inolvidable
-                    acompañada de un ambiente acogedor.
-                </p>
-
-            </div>
-
+      <div class="container">
+        <div class="about-image">
+          <img
+            src="imagenes/historia1.webp"
+            alt="Instalaciones del restaurante Eccehomo"
+          />
         </div>
 
+        <div class="about-text">
+          <h2>Nuestra Historia</h2>
+
+          <p>
+            Eccehomo nace de la pasión por la gastronomía, el valor de las
+            tradiciones familiares y el profundo amor por la naturaleza. Desde
+            sus inicios, nuestro propósito ha sido crear un lugar especial donde
+            la buena comida, la calidez humana y la belleza del entorno se unan
+            para brindar experiencias memorables a cada uno de nuestros
+            visitantes. Más que un restaurante, Eccehomo es un espacio pensado
+            para compartir, celebrar y disfrutar de los pequeños y grandes
+            momentos de la vida. Nuestra esencia se refleja en cada plato que
+            servimos, en la atención que ofrecemos y en cada rincón de nuestras
+            instalaciones, donde buscamos que nuestros visitantes se sientan
+            bienvenidos y encuentren un ambiente acogedor para disfrutar en
+            familia, en pareja o con amigos.
+          </p>
+        </div>
+      </div>
     </section>
 
     <section id="menu-section" class="specialties reveal">
+      <h2>Nuestras Especialidades</h2>
 
-        <h2>Nuestras Especialidades</h2>
-
-        <div class="accordion-container">
-
-            <!-- CARNES -->
-            <div class="accordion-item active" data-accordion>
-                <button class="accordion-header">
-                    <div class="accordion-title-group">
-                        <h3> Carnes</h3>
-                        <p>Cortes seleccionados preparados al carbón</p>
-                    </div>
-                    <div class="accordion-icon">▼</div>
-                </button>
-                <div class="accordion-body">
-                    <ul class="dish-list">
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">LLanera <span
-                                        class="badge recommended">Recomendado</span></span>
-                                <span class="dish-desc">carne de cerdo ahumada y asada porciones de $30 en adelante, acompañada de papa y yuca</span>
-                            </div>
-                            <span class="dish-price">$30.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Costillas de Cerdo BBQ</span>
-                                <span class="dish-desc">Costillas glaseadas en salsa BBQ artesanal con aguarnicion de preferencia</span>
-                            </div>
-                            <span class="dish-price">$43.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Churrasco con Camarones <span class="badge new">Nuevo</span></span>
-                                <span class="dish-desc">200g de carne en salsa y camarones</span>
-                            </div>
-                            <span class="dish-price">$75.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Parrillada Eccehomo</span>
-                                <span class="dish-desc">chicharron, pechuga, chorizo, morcilla, papa y arepa</span>
-                            </div>
-                            <span class="dish-price">$70.000</span>
-                        </li>
-                    </ul>
-                </div>
+      <div class="accordion-container">
+        <!-- CARNES -->
+        <div class="accordion-item active" data-accordion>
+          <button class="accordion-header">
+            <div class="accordion-title-group">
+              <h3>Carnes</h3>
+              <p>Cortes seleccionados preparados al carbón</p>
             </div>
-
-            <!-- MARISCOS -->
-            <div class="accordion-item" data-accordion>
-                <button class="accordion-header">
-                    <div class="accordion-title-group">
-                        <h3> Mariscos</h3>
-                        <p>Sabores traídos desde el mar</p>
-                    </div>
-                    <div class="accordion-icon">▼</div>
-                </button>
-                <div class="accordion-body">
-                    <ul class="dish-list">
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Cazuela de Mariscos <span
-                                        class="badge recommended">Recomendado</span></span>
-                                <span class="dish-desc">Camarón, pulpo, calamares en salsa de coco y curry</span>
-                            </div>
-                            <span class="dish-price">$60.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Mixtos del Mar</span>
-                                <span class="dish-desc">Posta de pescado en salsa marinera acompañada con camaron</span>
-                            </div>
-                            <span class="dish-price">$69.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Langosta con Camarones</span>
-                                <span class="dish-desc">Langosta y camarones en salsa de ajo y hierbas</span>
-                            </div>
-                            <span class="dish-price">$105.000</span>
-                        </li>
-                    </ul>
+            <div class="accordion-icon">▼</div>
+          </button>
+          <div class="accordion-body">
+            <ul class="dish-list">
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name"
+                    >LLanera
+                    <span class="badge recommended">Recomendado</span></span
+                  >
+                  <span class="dish-desc"
+                    >carne de cerdo ahumada y asada porciones de $30 en
+                    adelante, acompañada de papa y yuca</span
+                  >
                 </div>
-            </div>
-
-            <!-- BEBIDAS -->
-            <div class="accordion-item" data-accordion>
-                <button class="accordion-header">
-                    <div class="accordion-title-group">
-                        <h3> Bebidas Artesanales</h3>
-                        <p>La mejor selección para acompañar tu comida</p>
-                    </div>
-                    <div class="accordion-icon">▼</div>
-                </button>
-                <div class="accordion-body">
-                    <ul class="dish-list">
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Limonada de Hierbabuena <span
-                                        class="badge new">Nuevo</span></span>
-                                <span class="dish-desc">Limón, hierbabuena fresca y con un toque citrico</span>
-                            </div>
-                            <span class="dish-price">$13.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Jarra de Sangría Eccehomo</span>
-                                <span class="dish-desc">Vino tinto, frutas tropicales y toque de canela</span>
-                            </div>
-                            <span class="dish-price">$60.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Piña Colada</span>
-                                <span class="dish-desc">coctel tropical con piña y crema de coco</span>
-                            </div>
-                            <span class="dish-price">$30.000</span>
-                        </li>
-                        <li class="dish-item">
-                            <div>
-                                <span class="dish-name">Jugo Natural en Agua / Leche</span>
-                                <span class="dish-desc">Mora, lulo, maracuyá o mango</span>
-                            </div>
-                            <span class="dish-price">$10.000</span>
-                        </li>
-                    </ul>
+                <span class="dish-price">$30.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Costillas de Cerdo BBQ</span>
+                  <span class="dish-desc"
+                    >Costillas glaseadas en salsa BBQ artesanal con aguarnicion
+                    de preferencia</span
+                  >
                 </div>
+                <span class="dish-price">$43.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name"
+                    >Churrasco con Camarones
+                    <span class="badge new">Nuevo</span></span
+                  >
+                  <span class="dish-desc"
+                    >200g de carne en salsa y camarones</span
+                  >
+                </div>
+                <span class="dish-price">$75.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Parrillada Eccehomo</span>
+                  <span class="dish-desc"
+                    >chicharron, pechuga, chorizo, morcilla, papa y arepa</span
+                  >
+                </div>
+                <span class="dish-price">$70.000</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- MARISCOS -->
+        <div class="accordion-item" data-accordion>
+          <button class="accordion-header">
+            <div class="accordion-title-group">
+              <h3>Mariscos</h3>
+              <p>Sabores traídos desde el mar</p>
             </div>
-                  <!-- DESCARGAR MENÚ PDF -->
+            <div class="accordion-icon">▼</div>
+          </button>
+          <div class="accordion-body">
+            <ul class="dish-list">
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name"
+                    >Cazuela de Mariscos
+                    <span class="badge recommended">Recomendado</span></span
+                  >
+                  <span class="dish-desc"
+                    >Camarón, pulpo, calamares en salsa de coco y curry</span
+                  >
+                </div>
+                <span class="dish-price">$60.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Mixtos del Mar</span>
+                  <span class="dish-desc"
+                    >Posta de pescado en salsa marinera acompañada con
+                    camaron</span
+                  >
+                </div>
+                <span class="dish-price">$69.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Langosta con Camarones</span>
+                  <span class="dish-desc"
+                    >Langosta y camarones en salsa de ajo y hierbas</span
+                  >
+                </div>
+                <span class="dish-price">$105.000</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BEBIDAS -->
+        <div class="accordion-item" data-accordion>
+          <button class="accordion-header">
+            <div class="accordion-title-group">
+              <h3>Bebidas Artesanales</h3>
+              <p>La mejor selección para acompañar tu comida</p>
+            </div>
+            <div class="accordion-icon">▼</div>
+          </button>
+          <div class="accordion-body">
+            <ul class="dish-list">
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name"
+                    >Limonada de Hierbabuena
+                    <span class="badge new">Nuevo</span></span
+                  >
+                  <span class="dish-desc"
+                    >Limón, hierbabuena fresca y con un toque citrico</span
+                  >
+                </div>
+                <span class="dish-price">$13.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Jarra de Sangría Eccehomo</span>
+                  <span class="dish-desc"
+                    >Vino tinto, frutas tropicales y toque de canela</span
+                  >
+                </div>
+                <span class="dish-price">$60.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Piña Colada</span>
+                  <span class="dish-desc"
+                    >coctel tropical con piña y crema de coco</span
+                  >
+                </div>
+                <span class="dish-price">$30.000</span>
+              </li>
+              <li class="dish-item">
+                <div>
+                  <span class="dish-name">Jugo Natural en Agua / Leche</span>
+                  <span class="dish-desc">Mora, lulo, maracuyá o mango</span>
+                </div>
+                <span class="dish-price">$10.000</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- DESCARGAR MENÚ PDF -->
         <div class="menu-download">
-            <div class="menu-download-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
-                    <path fill="currentColor" d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/>
-                </svg>
-            </div>
-            <div class="menu-download-text">
-                <h3>¿Quieres ver el menú completo?</h3>
-                <p>Descarga nuestro menú en PDF con todos los platos, bebidas y precios actualizados.</p>
-            </div>
-            <a href="documentos/Menú de comida_merged.pdf" class="btn-download" download>
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                </svg>
-                Descargar PDF
-            </a>
+          <div class="menu-download-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="currentColor"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"
+              />
+              <path
+                fill="currentColor"
+                d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"
+              />
+            </svg>
+          </div>
+          <div class="menu-download-text">
+            <h3>¿Quieres ver el menú completo?</h3>
+            <p>
+              Descarga nuestro menú en PDF con todos los platos, bebidas y
+              precios actualizados.
+            </p>
+          </div>
+          <a
+            href="documentos/Menú de comida_merged.pdf"
+            class="btn-download"
+            download
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill="currentColor"
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+              />
+            </svg>
+            Descargar PDF
+          </a>
         </div>
 
-        <p class="menu-note"> Haz clic en cada categoría para ver los platos. Los precios pueden variar.</p>
-
-
-        </div>
-          
+        <p class="menu-note">
+          Haz clic en cada categoría para ver los platos. Los precios pueden
+          variar.
+        </p>
+      </div>
     </section>
 
     <section id="hospedaje" class="lodging reveal">
+      <div class="lodging-content">
+        <div class="lodging-text">
+          <h2>Hospedaje Campestre</h2>
+          <p>
+            Disfruta de una experiencia de descanso y conexión con la naturaleza
+            en nuestras cómodas instalaciones, rodeadas de hermosos paisajes,
+            amplias zonas verdes y un ambiente de tranquilidad ideal para
+            desconectarte de la rutina. Nuestro hospedaje campestre está pensado
+            para brindarte comodidad, atención y bienestar, ya sea que nos
+            visites en pareja, en familia o con amigos. Además, podrás disfrutar
+            de nuestros espacios al aire libre, recorrer los senderos ecológicos
+            y vivir una experiencia diferente, en la que la naturaleza y el
+            confort se convierten en los protagonistas de tu visita.
+          </p>
 
-        <div class="lodging-content">
-
-            <div class="lodging-text">
-                <h2>Hospedaje Campestre</h2>
-                <p>
-                    Relájate en nuestras cómodas instalaciones rodeadas de naturaleza.
-                    Cada espacio está diseñado para ofrecerte descanso, tranquilidad y una
-                    experiencia inolvidable en medio del paisaje.
-                </p>
-                <ul class="lodging-features">
-                    <li>✓ Habitaciones con vista a la naturaleza</li>
-                    <li>✓ Desayuno campestre incluido</li>
-                    <li>✓ WiFi, TV y baño privado</li>
-                    <li>✓ Zonas verdes y senderos ecológicos</li>
-                </ul>
-                <a href="#reservas" class="btn-lodging">Reservar Hospedaje</a>
-            </div>
-
-            <!-- CARRUSEL DE HOSPEDAJE -->
-            <div class="lodging-carousel-wrap">
-                <div class="lodging-carousel" id="lodgingCarousel">
-
-                    <div class="lodging-slide active" style="background-image: url('imagenes/cuarto.jpeg');">
-                        <div class="lodging-caption">
-                            <h4>Vista Panorámica del Hotel</h4>
-                            <p>Arquitectura campestre integrada con la naturaleza</p>
-                        </div>
-                    </div>
-
-                    <div class="lodging-slide" style="background-image: url('imagenes/hospedaje2.jpg');">
-                        <div class="lodging-caption">
-                            <h4>Habitación Suite Principal</h4>
-                            <p>Cama king size, balcón privado y vista a la montaña</p>
-                        </div>
-                    </div>
-
-                    <div class="lodging-slide" style="background-image: url('imagenes/hospedaje3.jpg');">
-                        <div class="lodging-caption">
-                            <h4>Habitación Doble Estándar</h4>
-                            <p>Perfecta para familias, con dos camas matrimoniales</p>
-                        </div>
-                    </div>
-
-                    <div class="lodging-slide" style="background-image: url('imagenes/picni1.jpeg');">
-                        <div class="lodging-caption">
-                            <h4>Zonas Comunes</h4>
-                            <p>Salón de descanso con chimenea y vistas al jardín</p>
-                        </div>
-                    </div>
-
-                    <div class="lodging-slide" style="background-image: url('imagenes/cuadro.jpeg');">
-                        <div class="lodging-caption">
-                            <h4>Jardines y Exteriores</h4>
-                            <p>1500 m² de zonas verdes para caminar y relajarse</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Controles -->
-                <button class="lodging-ctrl lodging-prev" id="lodgingPrev" aria-label="Anterior">&#10094;</button>
-                <button class="lodging-ctrl lodging-next" id="lodgingNext" aria-label="Siguiente">&#10095;</button>
-
-                <!-- Dots -->
-                <div class="lodging-dots" id="lodgingDots"></div>
-            </div>
-
-            <!-- Miniaturas -->
-            <div class="lodging-thumbs" id="lodgingThumbs"></div>
-
+          <ul class="lodging-features">
+            <li>✓ Habitaciones con vista a la naturaleza</li>
+            <li>✓ Desayuno campestre incluido</li>
+            <li>✓ WiFi, TV y baño privado</li>
+            <li>✓ Zonas verdes y senderos ecológicos</li>
+          </ul>
+          <a href="#reservas" class="btn-lodging">Reservar Hospedaje</a>
         </div>
 
+        <!-- CARRUSEL DE HOSPEDAJE -->
+        <div class="lodging-carousel-wrap">
+          <div class="lodging-carousel" id="lodgingCarousel">
+            <div
+              class="lodging-slide active"
+              style="background-image: url(&quot;imagenes/cuarto.jpeg&quot;)"
+            >
+              <div class="lodging-caption">
+                <h4>Vista Panorámica del Hotel</h4>
+                <p>Arquitectura campestre integrada con la naturaleza</p>
+              </div>
+            </div>
+
+            <div
+              class="lodging-slide"
+              style="background-image: url(&quot;imagenes/hospedaje2.jpg&quot;)"
+            >
+              <div class="lodging-caption">
+                <h4>Habitación Suite Principal</h4>
+                <p>Cama king size, balcón privado y vista a la montaña</p>
+              </div>
+            </div>
+
+            <div
+              class="lodging-slide"
+              style="background-image: url(&quot;imagenes/hospedaje3.jpg&quot;)"
+            >
+              <div class="lodging-caption">
+                <h4>Habitación Doble Estándar</h4>
+                <p>Perfecta para familias, con dos camas matrimoniales</p>
+              </div>
+            </div>
+
+            <div
+              class="lodging-slide"
+              style="background-image: url(&quot;imagenes/picni1.jpeg&quot;)"
+            >
+              <div class="lodging-caption">
+                <h4>Zonas Comunes</h4>
+                <p>Salón de descanso con chimenea y vistas al jardín</p>
+              </div>
+            </div>
+
+            <div
+              class="lodging-slide"
+              style="background-image: url(&quot;imagenes/cuadro.jpeg&quot;)"
+            >
+              <div class="lodging-caption">
+                <h4>Jardines y Exteriores</h4>
+                <p>1500 m² de zonas verdes para caminar y relajarse</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles -->
+          <button
+            class="lodging-ctrl lodging-prev"
+            id="lodgingPrev"
+            aria-label="Anterior"
+          >
+            &#10094;
+          </button>
+          <button
+            class="lodging-ctrl lodging-next"
+            id="lodgingNext"
+            aria-label="Siguiente"
+          >
+            &#10095;
+          </button>
+
+          <!-- Dots -->
+          <div class="lodging-dots" id="lodgingDots"></div>
+        </div>
+
+        <!-- Miniaturas -->
+        <div class="lodging-thumbs" id="lodgingThumbs"></div>
+      </div>
     </section>
     <section id="eventos" class="events reveal">
+      <div class="events-header">
+        <h2>Eventos & Celebraciones</h2>
+        <p>
+          Transformamos tus momentos especiales en experiencias inolvidables.
+          Desde bodas íntimas hasta grandes celebraciones, nuestro espacio
+          campestre es el escenario perfecto para tus sueños.
+        </p>
+      </div>
 
-        <div class="events-header">
-            <h2>Eventos & Celebraciones</h2>
+      <div class="events-grid">
+        <!-- BODAS (grande) -->
+        <div class="event-card large">
+          <img src="imagenes/boda2.jpeg" alt="Boda campestre en Eccehomo" />
+          <div class="event-overlay">
+            <span class="event-tag">Bodas</span>
+            <h3>Bodas Campestres</h3>
             <p>
-                Transformamos tus momentos especiales en experiencias inolvidables.
-                Desde bodas íntimas hasta grandes celebraciones, nuestro espacio campestre
-                es el escenario perfecto para tus sueños.
+              Celebra tu amor en un entorno natural con capacidad hasta 120
+              invitados, menú gourmet y decoración personalizada.
             </p>
+          </div>
         </div>
 
-        <div class="events-grid">
-
-            <!-- BODAS (grande) -->
-            <div class="event-card large">
-                <img src="imagenes/boda2.jpeg" alt="Boda campestre en Eccehomo">
-                <div class="event-overlay">
-                    <span class="event-tag">Bodas</span>
-                    <h3>Bodas Campestres</h3>
-                    <p>Celebra tu amor en un entorno natural con capacidad hasta 120 invitados, menú gourmet y
-                        decoración personalizada.</p>
-                </div>
-            </div>
-
-            <!-- QUINCEAÑERAS -->
-            <div class="event-card">
-                <img src="imagenes/quince3.jpeg" alt="Quinceañera en Eccehomo">
-                <div class="event-overlay">
-                    <span class="event-tag">Quinceañeras</span>
-                    <h3>15 Años</h3>
-                    <p>Un día inolvidable con todo incluido para la quinceañera.</p>
-                </div>
-            </div>
-
-            <!-- CENAS -->
-            <div class="event-card">
-                <img src="imagenes/cenasespeciales2.jpeg" alt="Cena especial en Eccehomo">
-                <div class="event-overlay">
-                    <span class="event-tag">Cenas</span>
-                    <h3>Cenas Especiales</h3>
-                    <p>Románticas, empresariales y celebraciones íntimas.</p>
-                </div>
-            </div>
-
-            <!-- REUNIONES (alta) -->
-            <div class="event-card tall">
-                <img src="imagenes/cena2.jpeg" alt="Reunión familiar en Eccehomo">
-                <div class="event-overlay">
-                    <span class="event-tag">Reuniones</span>
-                    <h3>Reuniones Familiares</h3>
-                    <p>Espacios amplios para toda la familia con actividades al aire libre y zonas de descanso.</p>
-                </div>
-            </div>
-
-            <!-- CORPORATIVOS -->
-            <div class="event-card">
-                <img src="imagenes/grupo de trabajo.jpeg" alt="Evento corporativo en Eccehomo">
-                <div class="event-overlay">
-                    <span class="event-tag">Corporativos</span>
-                    <h3>Eventos de Empresa</h3>
-                    <p>Integración, team building y reuniones ejecutivas.</p>
-                </div>
-            </div>
-
-            <!-- BAUTIZOS -->
-            <div class="event-card">
-                <img src="imagenes/puente.jpeg" alt="Bautizo en Eccehomo">
-                <div class="event-overlay">
-                    <span class="event-tag">Bautizos</span>
-                    <h3>Bautizos & Primera Comunión</h3>
-                    <p>Ambiente acogedor y familiar para los más pequeños.</p>
-                </div>
-            </div>
-
+        <!-- QUINCEAÑERAS -->
+        <div class="event-card">
+          <img src="imagenes/quince3.jpeg" alt="Quinceañera en Eccehomo" />
+          <div class="event-overlay">
+            <span class="event-tag">Quinceañeras</span>
+            <h3>15 Años</h3>
+            <p>Un día inolvidable con todo incluido para la quinceañera.</p>
+          </div>
         </div>
 
-        <div class="event-cta">
-            <a href="#reservas">Cotizar mi Evento</a>
+        <!-- CENAS -->
+        <div class="event-card">
+          <img
+            src="imagenes/cenasespeciales2.jpeg"
+            alt="Cena especial en Eccehomo"
+          />
+          <div class="event-overlay">
+            <span class="event-tag">Cenas</span>
+            <h3>Cenas Especiales</h3>
+            <p>Románticas, empresariales y celebraciones íntimas.</p>
+          </div>
         </div>
 
+        <!-- REUNIONES (alta) -->
+        <div class="event-card tall">
+          <img src="imagenes/cena2.jpeg" alt="Reunión familiar en Eccehomo" />
+          <div class="event-overlay">
+            <span class="event-tag">Reuniones</span>
+            <h3>Reuniones Familiares</h3>
+            <p>
+              Espacios amplios para toda la familia con actividades al aire
+              libre y zonas de descanso.
+            </p>
+          </div>
+        </div>
+
+        <!-- CORPORATIVOS -->
+        <div class="event-card">
+          <img
+            src="imagenes/grupo de trabajo.jpeg"
+            alt="Evento corporativo en Eccehomo"
+          />
+          <div class="event-overlay">
+            <span class="event-tag">Corporativos</span>
+            <h3>Eventos de Empresa</h3>
+            <p>Integración, team building y reuniones ejecutivas.</p>
+          </div>
+        </div>
+
+        <!-- BAUTIZOS -->
+        <div class="event-card">
+          <img src="imagenes/puente.jpeg" alt="Bautizo en Eccehomo" />
+          <div class="event-overlay">
+            <span class="event-tag">Bautizos</span>
+            <h3>Bautizos & Primera Comunión</h3>
+            <p>Ambiente acogedor y familiar para los más pequeños.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-cta">
+        <a href="#reservas">Cotizar mi Evento</a>
+      </div>
     </section>
     <section id="galeria" class="gallery reveal">
+      <h2>Galería</h2>
 
-    <h2>Galería</h2>
+      <div class="gallery-grid">
+        <img
+          src="imagenes/palto.jpeg"
+          alt="Plato del restaurante"
+          data-index="0"
+        />
+        <img src="imagenes/cuadro.jpeg" alt="Sona verde" data-index="1" />
+        <img
+          src="imagenes/casa.jpeg"
+          alt="que nunca te falten las citas"
+          data-index="2"
+        />
+        <img
+          src="imagenes/negocio_noche.jpeg"
+          alt="restaurante por la noche"
+          data-index="3"
+        />
+        <img
+          src="imagenes/cuarto.jpeg"
+          alt="vista desde nuestros cuartos"
+          data-index="4"
+        />
+        <img src="imagenes/puente.jpeg" alt="pedida de mano" data-index="5" />
+        <img
+          src="imagenes/cenas.jpeg"
+          alt="cita perfecta con quien quieres"
+          data-index="6"
+        />
+        <img
+          src="imagenes/antorchas.jpeg"
+          alt="Decoración con antorchas"
+          data-index="7"
+        />
+        <img
+          src="imagenes/picnic.jpeg"
+          alt="que nunca falcen las citas romanticas"
+          data-index="8"
+        />
+        <img src="imagenes/area comun3.jpeg" alt="area comun" data-index="9" />
+      </div>
 
-    <div class="gallery-grid">
-
-        <img src="imagenes/palto.jpeg" alt="Plato del restaurante" data-index="0">
-        <img src="imagenes/cuadro.jpeg" alt="Sona verde" data-index="1">
-        <img src="imagenes/casa.jpeg" alt="que nunca te falten las citas" data-index="2">
-        <img src="imagenes/negocio_noche.jpeg" alt="restaurante por la noche" data-index="3">
-        <img src="imagenes/cuarto.jpeg" alt="vista desde nuestros cuartos" data-index="4">
-        <img src="imagenes/puente.jpeg" alt="pedida de mano" data-index="5">
-        <img src="imagenes/cenas.jpeg" alt="cita perfecta con quien quieres" data-index="6">
-        <img src ="imagenes/antorchas.jpeg" alt="Decoración con antorchas" data-index="7">
-        <img src ="imagenes/picnic.jpeg" alt="que nunca falcen las citas romanticas" data-index="8">
-        <img src ="imagenes/area comun3.jpeg" alt="area comun" data-index="9">
-
-    </div>
-
-    <div class="gallery-toggle-wrap">
-        <button class="btn-gallery-toggle" id="galleryToggleBtn" type="button" aria-expanded="false">
-            <span class="btn-text">Ver más</span>
-            <span class="btn-icon">▼</span>
+      <div class="gallery-toggle-wrap">
+        <button
+          class="btn-gallery-toggle"
+          id="galleryToggleBtn"
+          type="button"
+          aria-expanded="false"
+        >
+          <span class="btn-text">Ver más</span>
+          <span class="btn-icon">▼</span>
         </button>
-    </div>
-
-</section>
+      </div>
+    </section>
 
     <section class="testimonials reveal">
+      <h2>Lo que dicen nuestros visitantes</h2>
 
-        <h2>Lo que dicen nuestros visitantes</h2>
-
-        <div class="cards">
-
-            <div class="testimonial">
-                <div class="stars"></div>
-                <p>"Excelente atención y comida espectacular."</p>
-            </div>
-
-            <div class="testimonial">
-                <div class="stars"></div>
-                <p>"Un lugar perfecto para compartir en familia."</p>
-            </div>
-
-            <div class="testimonial">
-                <div class="stars"></div>
-                <p>"La mejor experiencia gastronómica de la región."</p>
-            </div>
-
+      <div class="cards">
+        <div class="testimonial">
+          <div class="stars"></div>
+          <p>"Excelente atención y comida espectacular."</p>
         </div>
 
+        <div class="testimonial">
+          <div class="stars"></div>
+          <p>"Un lugar perfecto para compartir en familia."</p>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars"></div>
+          <p>"La mejor experiencia gastronómica de la región."</p>
+        </div>
+      </div>
     </section>
 
     <section id="reservas" class="reservation">
+      <h2>Reserva tu experiencia</h2>
 
-    <h2>Reserva tu experiencia</h2>
+      <form>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre completo"
+          required
+        />
 
-    <form>
+        <input type="tel" name="telefono" placeholder="Teléfono" required />
 
-        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input
+          type="text"
+          name="fecha"
+          placeholder="Fecha de reserva"
+          onfocus="this.type = 'date'"
+          onblur="if (!this.value) this.type = 'text';"
+          required
+        />
 
-        <input type="tel" name="telefono" placeholder="Teléfono" required>
-
-        <input type="text" name="fecha" placeholder="Fecha de reserva" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" required>
-
-        <input type="number" name="personas" placeholder="Número de personas" min="1" required>
+        <input
+          type="number"
+          name="personas"
+          placeholder="Número de personas"
+          min="1"
+          required
+        />
 
         <!-- NUEVO CAMPO: Tipo de evento -->
-        <input type="text" name="evento" placeholder="Tipo de evento (bodas, quinceañeras, cena, reunión...)">
+        <input
+          type="text"
+          name="evento"
+          placeholder="Tipo de evento (bodas, quinceañeras, cena, reunión...)"
+        />
 
-        <button type="submit">
-            Reservar
-        </button>
-
-    </form>
-
-</section>
+        <button type="submit">Reservar</button>
+      </form>
+    </section>
 
     <section class="map">
-
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.6496350355444!2d-76.6552982!3d8.0486397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e506fab68430dc3%3A0x20cceb71197f377c!2sRestaurante%20Eccehomo%20el%20lago!5e0!3m2!1ses-419!2sco!4v1722400000000"
-            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.6496350355444!2d-76.6552982!3d8.0486397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e506fab68430dc3%3A0x20cceb71197f377c!2sRestaurante%20Eccehomo%20el%20lago!5e0!3m2!1ses-419!2sco!4v1722400000000"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      >
+      </iframe>
     </section>
 
     <footer id="contacto">
+      <h3>Eccehomo Asadero y Restaurante</h3>
 
-        <h3>Eccehomo Asadero y Restaurante</h3>
+      <p>📞 +57 3107404575</p>
 
-        <p>📞 +57 3107404575</p>
+      <p>📍 Dirección del restaurante</p>
 
-        <p>📍 Dirección del restaurante</p>
-
-        <p>&copy; 2026 Todos los derechos reservados</p>
-
+      <p>&copy; 2026 Todos los derechos reservados</p>
     </footer>
 
-    <a href="https://wa.me/573107404575" class="whatsapp" target="_blank" rel="noopener noreferrer"
-        aria-label="Contactar por WhatsApp">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path fill="currentColor"
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-        </svg>
+    <a
+      href="https://wa.me/573107404575"
+      class="whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          fill="currentColor"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
     </a>
     <!-- LIGHTBOX - GALERÍA PANTALLA COMPLETA -->
-<div class="lightbox-overlay" id="lightbox">
+    <div class="lightbox-overlay" id="lightbox">
+      <button
+        class="lightbox-close"
+        id="lightboxClose"
+        aria-label="Cerrar galería"
+      >
+        &times;
+      </button>
 
-    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar galería">&times;</button>
+      <button
+        class="lightbox-nav lightbox-prev"
+        id="lightboxPrev"
+        aria-label="Imagen anterior"
+      >
+        &#10094;
+      </button>
+      <button
+        class="lightbox-nav lightbox-next"
+        id="lightboxNext"
+        aria-label="Imagen siguiente"
+      >
+        &#10095;
+      </button>
 
-    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Imagen anterior">&#10094;</button>
-    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Imagen siguiente">&#10095;</button>
+      <div class="lightbox-img-wrap">
+        <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      </div>
 
-    <div class="lightbox-img-wrap">
-        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <div class="lightbox-counter" id="lightboxCounter">1 / 6</div>
     </div>
 
-    <div class="lightbox-caption" id="lightboxCaption"></div>
-    <div class="lightbox-counter" id="lightboxCounter">1 / 6</div>
-
-</div>
-
     <script src="js/main.js"></script>
-
-</body>
-
+  </body>
 </html>
