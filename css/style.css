@@ -802,6 +802,10 @@ footer p {
     text-align: center;
   }
 
+  .about-text p {
+    text-align: center;
+  }
+
   .lodging h2 {
     text-align: center;
   }
@@ -1597,9 +1601,15 @@ footer p {
 }
 
 /* Botón CTA */
+.event-packages {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
 .event-cta {
     text-align: center;
-    margin-top: 60px;
+  margin-top: 16px;
 }
 
 .event-cta a {

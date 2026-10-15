@@ -2,7 +2,7 @@
    ECCEHOMO ASADERO Y RESTAURANTE - JS
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', function () {
+function iniciarTodo() {
 
   // ---------- 1. Carrusel del Hero ----------
   const slides = document.querySelectorAll('.carousel-slide');
@@ -228,9 +228,10 @@ document.addEventListener('DOMContentLoaded', function () {
           mensaje += `\n*Tipo de evento:* ${evento}`;
         }
 
-        // Construir enlace de WhatsApp 
-
-        const urlWhatsApp = `https://wa.me/573107404575?text=${encodeURIComponent(mensaje)}`;
+        // Construir enlace de WhatsApp (número configurable en contenido.json)
+        const datosContenido = (window.EcceContenido && window.EcceContenido.datos) || {};
+        const numeroWA = (datosContenido.footer && datosContenido.footer.whatsappNumero) || '573107404575';
+        const urlWhatsApp = `https://wa.me/${numeroWA}?text=${encodeURIComponent(mensaje)}`;
 
         // Abrir WhatsApp en una nueva pestaña
         window.open(urlWhatsApp, '_blank');
@@ -241,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-});
-//  Acordeón de Especialidades
+
+  // ---------- 6. Acordeón de Especialidades ----------
 const accordionItems = document.querySelectorAll('[data-accordion]');
 
 accordionItems.forEach(item => {
@@ -448,4 +449,28 @@ if (galleryGrid && galleryToggleBtn) {
       }
     }
   });
+} // fin bloque galería
+
+} // fin iniciarTodo()
+
+
+/* ============================================
+   ARRANQUE
+   Espera a que contenido.json sea aplicado
+   (js/content.js) antes de inicializar carruseles,
+   galería, lightbox y acordeones.
+   ============================================ */
+function arrancarSitio() {
+  const listo = (window.EcceContenido && window.EcceContenido.listo)
+    ? window.EcceContenido.listo
+    : Promise.resolve(null);
+
+  // onFulfilled / onRejected: iniciarTodo() corre UNA sola vez
+  listo.then(iniciarTodo, iniciarTodo);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', arrancarSitio);
+} else {
+  arrancarSitio();
 }

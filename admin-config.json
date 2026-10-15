@@ -1,0 +1,7 @@
+{
+  "algoritmo": "SHA-256",
+  "sal": "99013e20de79b1011379bde08a78d5ab",
+  "correo": "admin@eccehomo.com",
+  "correoHash": "327415754a02bfe1b8bea81507e378ad87d631f6e4052eb52755e2a7b214b66c",
+  "nota": "correoHash = SHA-256(sal + correo minusculas + '|' + contrasena). Las credenciales se cambian desde el panel (pestaña Cuenta) y este archivo se vuelve a descargar para subirlo al hosting."
+}

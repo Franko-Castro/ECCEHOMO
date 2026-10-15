@@ -1,0 +1,255 @@
+{
+  "actualizado": "2026-10-14",
+  "logo": {
+    "src": "imagenes/logo2.png",
+    "alt": "Eccehomo"
+  },
+  "hero": {
+    "etiqueta": "ASADERO Y RESTAURANTE",
+    "titulo": "Tradición y sabor en medio de la naturaleza",
+    "descripcion": "Disfruta de cortes premium, platos típicos, eventos especiales y hospedaje en un entorno único.",
+    "botonPrimario": "Reservar Mesa",
+    "botonSecundario": "Ver Menú",
+    "fondo": [
+      { "src": "imagenes/template_skin_enhancer.png" },
+      { "src": "imagenes/nanis1.jpeg" },
+      { "src": "imagenes/picni1.jpeg" },
+      { "src": "imagenes/picnic.jpeg" },
+      { "src": "imagenes/cielo.jpeg" },
+      { "src": "imagenes/vista de la naturaleza.jpeg" }
+    ]
+  },
+  "nosotros": {
+    "titulo": "Nuestra Historia",
+    "texto": "Eccehomo nace de la pasión por la gastronomía, el valor de las tradiciones familiares y el profundo amor por la naturaleza. Desde sus inicios, nuestro propósito ha sido crear un lugar especial donde la buena comida, la calidez humana y la belleza del entorno se unan para brindar experiencias memorables a cada uno de nuestros visitantes. Más que un restaurante, Eccehomo es un espacio pensado para compartir, celebrar y disfrutar de los pequeños y grandes momentos de la vida. Nuestra esencia se refleja en cada plato que servimos, en la atención que ofrecemos y en cada rincón de nuestras instalaciones, donde buscamos que nuestros visitantes se sientan bienvenidos y encuentren un ambiente acogedor para disfrutar en familia, en pareja o con amigos.",
+    "imagen": "imagenes/historia1.webp",
+    "alt": "Instalaciones del restaurante Eccehomo"
+  },
+  "menu": {
+    "titulo": "Nuestras Especialidades",
+    "nota": "Haz clic en cada categoría para ver los platos. Los precios pueden variar.",
+    "categorias": [
+      {
+        "nombre": "Carnes",
+        "descripcion": "Cortes seleccionados preparados al carbón",
+        "platos": [
+          {
+            "nombre": "LLanera",
+            "descripcion": "carne de cerdo ahumada y asada porciones de $30 en adelante, acompañada de papa y yuca",
+            "precio": "$30.000",
+            "badge": "recommended"
+          },
+          {
+            "nombre": "Costillas de Cerdo BBQ",
+            "descripcion": "Costillas glaseadas en salsa BBQ artesanal con aguarnicion de preferencia",
+            "precio": "$43.000",
+            "badge": ""
+          },
+          {
+            "nombre": "Churrasco con Camarones",
+            "descripcion": "200g de carne en salsa y camarones",
+            "precio": "$75.000",
+            "badge": "new"
+          },
+          {
+            "nombre": "Parrillada Eccehomo",
+            "descripcion": "chicharron, pechuga, chorizo, morcilla, papa y arepa",
+            "precio": "$70.000",
+            "badge": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Mariscos",
+        "descripcion": "Sabores traídos desde el mar",
+        "platos": [
+          {
+            "nombre": "Cazuela de Mariscos",
+            "descripcion": "Camarón, pulpo, calamares en salsa de coco y curry",
+            "precio": "$60.000",
+            "badge": "recommended"
+          },
+          {
+            "nombre": "Mixtos del Mar",
+            "descripcion": "Posta de pescado en salsa marinera acompañada con camaron",
+            "precio": "$69.000",
+            "badge": ""
+          },
+          {
+            "nombre": "Langosta con Camarones",
+            "descripcion": "Langosta y camarones en salsa de ajo y hierbas",
+            "precio": "$105.000",
+            "badge": ""
+          }
+        ]
+      },
+      {
+        "nombre": "Bebidas Artesanales",
+        "descripcion": "La mejor selección para acompañar tu comida",
+        "platos": [
+          {
+            "nombre": "Limonada de Hierbabuena",
+            "descripcion": "Limón, hierbabuena fresca y con un toque citrico",
+            "precio": "$13.000",
+            "badge": "new"
+          },
+          {
+            "nombre": "Jarra de Sangría Eccehomo",
+            "descripcion": "Vino tinto, frutas tropicales y toque de canela",
+            "precio": "$60.000",
+            "badge": ""
+          },
+          {
+            "nombre": "Piña Colada",
+            "descripcion": "coctel tropical con piña y crema de coco",
+            "precio": "$30.000",
+            "badge": ""
+          },
+          {
+            "nombre": "Jugo Natural en Agua / Leche",
+            "descripcion": "Mora, lulo, maracuyá o mango",
+            "precio": "$10.000",
+            "badge": ""
+          }
+        ]
+      }
+    ],
+    "pdf": {
+      "titulo": "¿Quieres ver el menú completo?",
+      "descripcion": "Descarga nuestro menú en PDF con todos los platos, bebidas y precios actualizados.",
+      "textoBoton": "Descargar PDF",
+      "archivo": "documentos/Menú de comida_merged.pdf"
+    }
+  },
+  "hospedaje": {
+    "titulo": "Hospedaje Campestre",
+    "texto": "Disfruta de una experiencia de descanso y conexión con la naturaleza en nuestras cómodas instalaciones, rodeadas de hermosos paisajes, amplias zonas verdes y un ambiente de tranquilidad ideal para desconectarte de la rutina. Nuestro hospedaje campestre está pensado para brindarte comodidad, atención y bienestar, ya sea que nos visites en pareja, en familia o con amigos. Además, podrás disfrutar de nuestros espacios al aire libre, recorrer los senderos ecológicos y vivir una experiencia diferente, en la que la naturaleza y el confort se convierten en los protagonistas de tu visita.",
+    "caracteristicas": [
+      "Habitaciones con vista a la naturaleza",
+      "Desayuno campestre incluido",
+      "WiFi, TV y baño privado",
+      "Zonas verdes y senderos ecológicos"
+    ],
+    "boton": "Reservar Hospedaje",
+    "carrusel": [
+      {
+        "imagen": "imagenes/cuarto.jpeg",
+        "titulo": "Vista Panorámica del Hotel",
+        "texto": "Arquitectura campestre integrada con la naturaleza"
+      },
+      {
+        "imagen": "imagenes/hospedaje2.jpg",
+        "titulo": "Habitación Suite Principal",
+        "texto": "Cama king size, balcón privado y vista a la montaña"
+      },
+      {
+        "imagen": "imagenes/hospedaje3.jpg",
+        "titulo": "Habitación Doble Estándar",
+        "texto": "Perfecta para familias, con dos camas matrimoniales"
+      },
+      {
+        "imagen": "imagenes/picni1.jpeg",
+        "titulo": "Zonas Comunes",
+        "texto": "Salón de descanso con chimenea y vistas al jardín"
+      },
+      {
+        "imagen": "imagenes/cuadro.jpeg",
+        "titulo": "Jardines y Exteriores",
+        "texto": "1500 m² de zonas verdes para caminar y relajarse"
+      }
+    ]
+  },
+  "eventos": {
+    "titulo": "Eventos & Celebraciones",
+    "descripcion": "Transformamos tus momentos especiales en experiencias inolvidables. Desde bodas íntimas hasta grandes celebraciones, nuestro espacio campestre es el escenario perfecto para tus sueños.",
+    "tarjetas": [
+      {
+        "tag": "Bodas",
+        "titulo": "Bodas Campestres",
+        "texto": "Celebra tu amor en un entorno natural con capacidad hasta 120 invitados, menú gourmet y decoración personalizada.",
+        "imagen": "imagenes/boda2.jpeg",
+        "alt": "Boda campestre en Eccehomo",
+        "clase": "large"
+      },
+      {
+        "tag": "Quinceañeras",
+        "titulo": "15 Años",
+        "texto": "Un día inolvidable con todo incluido para la quinceañera.",
+        "imagen": "imagenes/quince3.jpeg",
+        "alt": "Quinceañera en Eccehomo",
+        "clase": ""
+      },
+      {
+        "tag": "Cenas",
+        "titulo": "Cenas Especiales",
+        "texto": "Románticas, empresariales y celebraciones íntimas.",
+        "imagen": "imagenes/cenasespeciales2.jpeg",
+        "alt": "Cena especial en Eccehomo",
+        "clase": ""
+      },
+      {
+        "tag": "Reuniones",
+        "titulo": "Reuniones Familiares",
+        "texto": "Espacios amplios para toda la familia con actividades al aire libre y zonas de descanso.",
+        "imagen": "imagenes/cena2.jpeg",
+        "alt": "Reunión familiar en Eccehomo",
+        "clase": "tall"
+      },
+      {
+        "tag": "Corporativos",
+        "titulo": "Eventos de Empresa",
+        "texto": "Integración, team building y reuniones ejecutivas.",
+        "imagen": "imagenes/grupo de trabajo.jpeg",
+        "alt": "Evento corporativo en Eccehomo",
+        "clase": ""
+      },
+      {
+        "tag": "Bautizos",
+        "titulo": "Bautizos & Primera Comunión",
+        "texto": "Ambiente acogedor y familiar para los más pequeños.",
+        "imagen": "imagenes/puente.jpeg",
+        "alt": "Bautizo en Eccehomo",
+        "clase": ""
+      }
+    ],
+    "pdf": {
+      "textoBoton": "Descargar paquetes PDF",
+      "archivo": "documentos/Paquetes de eventos.pdf"
+    },
+    "cta": "Cotizar mi Evento"
+  },
+  "galeria": {
+    "titulo": "Galería",
+    "imagenes": [
+      { "src": "imagenes/palto.jpeg", "alt": "Plato del restaurante" },
+      { "src": "imagenes/cuadro.jpeg", "alt": "Sona verde" },
+      { "src": "imagenes/casa.jpeg", "alt": "que nunca te falten las citas" },
+      { "src": "imagenes/negocio_noche.jpeg", "alt": "restaurante por la noche" },
+      { "src": "imagenes/cuarto.jpeg", "alt": "vista desde nuestros cuartos" },
+      { "src": "imagenes/puente.jpeg", "alt": "pedida de mano" },
+      { "src": "imagenes/cenas.jpeg", "alt": "cita perfecta con quien quieres" },
+      { "src": "imagenes/antorchas.jpeg", "alt": "Decoración con antorchas" },
+      { "src": "imagenes/picnic.jpeg", "alt": "que nunca falcen las citas romanticas" },
+      { "src": "imagenes/area comun3.jpeg", "alt": "area comun" }
+    ]
+  },
+  "testimonios": {
+    "titulo": "Lo que dicen nuestros visitantes",
+    "items": [
+      { "texto": "Excelente atención y comida espectacular." },
+      { "texto": "Un lugar perfecto para compartir en familia." },
+      { "texto": "La mejor experiencia gastronómica de la región." }
+    ]
+  },
+  "reservas": {
+    "titulo": "Reserva tu experiencia"
+  },
+  "footer": {
+    "titulo": "Eccehomo Asadero y Restaurante",
+    "telefono": "+57 3107404575",
+    "direccion": "Dirección del restaurante",
+    "copyright": "© 2026 Todos los derechos reservados",
+    "whatsapp": "https://wa.me/573107404575",
+    "whatsappNumero": "573107404575"
+  }
+}

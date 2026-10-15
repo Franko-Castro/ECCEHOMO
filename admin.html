@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <title>Panel de Administración - Eccehomo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+
+  <body>
+    <!-- ===================== INICIO DE SESIÓN ===================== -->
+    <div class="login-wrap" id="vistaLogin">
+      <form class="login-card" id="formLogin" autocomplete="on">
+        <img src="imagenes/logo2.png" alt="Eccehomo" class="login-logo" />
+
+        <h1>Panel de Administración</h1>
+        <p class="login-sub">Eccehomo Asadero y Restaurante</p>
+
+        <label class="campo">
+          <span>Correo electrónico</span>
+          <input type="email" id="loginCorreo" required autocomplete="username" />
+        </label>
+
+        <label class="campo">
+          <span>Contraseña</span>
+          <input
+            type="password"
+            id="loginPass"
+            required
+            autocomplete="current-password"
+          />
+        </label>
+
+        <p class="login-error" id="loginError" hidden>
+          Correo o contraseña incorrectos.
+        </p>
+
+        <button type="submit" class="btn btn-primario btn-block">
+          Iniciar sesión
+        </button>
+
+        <p class="login-hint" id="loginHint" hidden>
+          Credenciales iniciales: <strong>admin@eccehomo.com</strong> /
+          <strong>Ecce2026!</strong><br />
+          Cámbialas en la pestaña <strong>Cuenta</strong> tan pronto entres.
+        </p>
+
+        <a class="login-volver" href="index.html">← Volver al sitio</a>
+      </form>
+    </div>
+
+    <!-- ===================== APLICACIÓN ===================== -->
+    <div class="app" id="vistaApp" hidden>
+      <header class="app-header">
+        <div class="app-header-titulo">
+          <img src="imagenes/logo2.png" alt="Eccehomo" />
+          <div>
+            <strong>Panel de Administración</strong>
+            <span id="estadoSucio" class="estado-sucio" hidden
+              >● Cambios sin guardar</span
+            >
+          </div>
+        </div>
+        <div class="app-header-acciones">
+          <a href="index.html" target="_blank" class="btn btn-secundario"
+            >Ver sitio ↗</a
+          >
+          <button type="button" class="btn btn-secundario" id="btnSalir">
+            Cerrar sesión
+          </button>
+        </div>
+      </header>
+
+      <div class="app-body">
+        <nav class="app-nav" id="appNav"></nav>
+        <main class="app-panel" id="panelContenido"></main>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="js/admin.js"></script>
+  </body>
+</html>
