@@ -71,6 +71,8 @@
   let cfg = null;
   let sucio = false;
   let seccionActual = 'inicio';
+  let publicando = false;
+  let publicarMensaje = '';
   const archivosPendientes = new Map(); // nombre -> { blob, carpeta, url }
 
   const CREDENCIALES_INICIALES = { correo: 'admin@eccehomo.com', pass: 'Ecce2026!' };
@@ -467,7 +469,28 @@
           '</ul>'
         : '<p class="seccion-ayuda">No has subido imágenes ni PDFs nuevos en esta sesión. Si solo cambiaste textos o precios, no hay archivos pendientes.</p>') +
 
-      '<h3 class="subtitulo">¿Qué hacer ahora?</h3>' +
+      '<h3 class="subtitulo">Publicación directa en la web (GitHub Pages)</h3>' +
+      '<div class="campo"><span>Token de GitHub</span>' +
+        '<input type="password" id="ghToken" placeholder="ghp_... o github_pat_..." autocomplete="off" value="' + esc(obtenerToken()) + '" />' +
+        '<small>Se guarda solo en este navegador. Nunca se sube al repositorio.</small>' +
+      '</div>' +
+      '<label class="recordar-token"><input type="checkbox" id="ghRecordar"' + (tokenEnLocal() ? ' checked' : '') + ' /> Recordar el token en este navegador</label>' +
+      '<div class="guardar-acciones">' +
+        '<button type="button" class="btn btn-primario" data-action="publicar"' + (publicando ? ' disabled' : '') + '>' +
+          (publicando ? '⏳ Publicando…' : '🚀 Publicar en la web') +
+        '</button>' +
+      '</div>' +
+      '<div class="publicar-estado' + (publicarMensaje ? '' : ' vacio') + '" id="publicarEstado">' +
+        esc(publicarMensaje || 'Al publicar, GitHub Pages actualizará la web automáticamente en ~1 minuto.') +
+      '</div>' +
+      '<div class="pasos"><h3>Crear el token de GitHub (solo una vez)</h3><ol>' +
+        '<li>Con tu cuenta, abre <b>github.com/settings/tokens</b> y pulsa <b>Generate new token (Fine-grained)</b>.</li>' +
+        '<li>En <b>Repository access</b> elige <b>Only select repositories</b> y selecciona <b>ECCEHOMO</b>.</li>' +
+        '<li>En <b>Account permissions</b> pon <b>Contents</b> → <b>Read and write</b> y genera el token.</li>' +
+        '<li>Copia el token y pégalo arriba (opcionalmente márcalo como recordado).</li>' +
+      '</ol></div>' +
+
+      '<h3 class="subtitulo">Alternativa: descarga manual</h3>' +
       '<div class="guardar-acciones">' +
         '<button type="button" class="btn btn-primario" data-action="descargar-todo">Descargar todo (JSON + archivos)</button>' +
         '<button type="button" class="btn btn-secundario" data-action="descargar-json">Descargar solo contenido.json</button>' +
@@ -477,7 +500,7 @@
         '<button type="button" class="btn btn-secundario" data-action="descartar">Descartar cambios y recargar</button>' +
       '</div>' +
 
-      '<div class="pasos"><h3>Publicar en tu hosting (cPanel)</h3><ol>' +
+      '<div class="pasos"><h3>Publicar en tu hosting (cPanel o manual)</h3><ol>' +
         '<li>Pulsa <b>Descargar todo</b>. Se descargarán contenido.json y (si los hay) las imágenes/PDF nuevos.</li>' +
         '<li>Entra al <b>gestor de archivos</b> de cPanel y ve a la carpeta raíz de tu sitio.</li>' +
         '<li>Sube <b>contenido.json</b> reemplazando el anterior.</li>' +
@@ -585,6 +608,140 @@
     }
   }
 
+  // ---------- Publicación directa vía GitHub (GitHub Pages) ----------
+  const CLAVE_TOKEN = 'eccehomo_gh_token';
+
+  function tokenEnLocal() {
+    return !!localStorage.getItem(CLAVE_TOKEN);
+  }
+
+  function obtenerToken() {
+    const campo = document.getElementById('ghToken');
+    if (campo && campo.value.trim()) return campo.value.trim();
+    return sessionStorage.getItem(CLAVE_TOKEN) || localStorage.getItem(CLAVE_TOKEN) || '';
+  }
+
+  function guardarToken(token, recordar) {
+    if (token) sessionStorage.setItem(CLAVE_TOKEN, token);
+    else sessionStorage.removeItem(CLAVE_TOKEN);
+    if (recordar && token) localStorage.setItem(CLAVE_TOKEN, token);
+    else localStorage.removeItem(CLAVE_TOKEN);
+  }
+
+  function cabecerasGitHub() {
+    return {
+      'Authorization': 'Bearer ' + obtenerToken(),
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json'
+    };
+  }
+
+  function apiContenido(ruta) {
+    const g = cfg.github;
+    const rutaCodificada = ruta.split('/').map(encodeURIComponent).join('/');
+    return 'https://api.github.com/repos/' + encodeURIComponent(g.owner) + '/' + encodeURIComponent(g.repo) + '/contents/' + rutaCodificada;
+  }
+
+  function bytesABase64(bytes) {
+    let bin = '';
+    const TAM = 0x8000;
+    for (let i = 0; i < bytes.length; i += TAM) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + TAM));
+    }
+    return btoa(bin);
+  }
+
+  function textoABase64(texto) {
+    return bytesABase64(new TextEncoder().encode(texto));
+  }
+
+  async function mensajeErrorGitHub(r) {
+    let j = {};
+    try { j = await r.json(); } catch (e) { /* respuesta sin cuerpo */ }
+    if (r.status === 401) return 'El token no es válido o expiró (401).';
+    if (r.status === 403) return 'El token no tiene permisos de escritura (necesita Contents: Read and write) o se superó el límite de peticiones (403).';
+    if (r.status === 404) return 'No se encontró el repositorio. Revisa la sección "github" de admin-config.json (404).';
+    return j.message ? j.message : 'Error HTTP ' + r.status;
+  }
+
+  async function obtenerSha(ruta) {
+    const r = await fetch(apiContenido(ruta) + '?ref=' + encodeURIComponent(cfg.github.rama || 'main'), { headers: cabecerasGitHub() });
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error(await mensajeErrorGitHub(r));
+    const j = await r.json();
+    return j.sha || null;
+  }
+
+  async function subirRuta(ruta, bytesBase64, mensaje) {
+    const sha = await obtenerSha(ruta);
+    const cuerpo = { message: mensaje, content: bytesBase64, branch: cfg.github.rama || 'main' };
+    if (sha) cuerpo.sha = sha;
+    let r = await fetch(apiContenido(ruta), { method: 'PUT', headers: cabecerasGitHub(), body: JSON.stringify(cuerpo) });
+    if (r.status === 409) {
+      // Conflicto de versión: otro cambio subió el archivo; reintentar una vez con el sha actual
+      cuerpo.sha = await obtenerSha(ruta);
+      r = await fetch(apiContenido(ruta), { method: 'PUT', headers: cabecerasGitHub(), body: JSON.stringify(cuerpo) });
+    }
+    if (!r.ok) throw new Error(await mensajeErrorGitHub(r));
+    return r.json();
+  }
+
+  function setEstadoPublicar(txt) {
+    publicarMensaje = txt;
+    const el = document.getElementById('publicarEstado');
+    if (el) el.textContent = txt;
+  }
+
+  async function publicar() {
+    if (publicando) return;
+    if (!obtenerToken()) {
+      toast('Pega tu token de GitHub en el campo de arriba para poder publicar.', true);
+      const c = document.getElementById('ghToken');
+      if (c) c.focus();
+      return;
+    }
+    if (!cfg.github || !cfg.github.owner || !cfg.github.repo) {
+      toast('Falta configurar "github" (owner/repo) en admin-config.json.', true);
+      return;
+    }
+
+    publicando = true;
+    render();
+
+    try {
+      const fecha = new Date().toISOString().slice(0, 10);
+
+      setEstadoPublicar('Subiendo contenido.json…');
+      await subirRuta('contenido.json', textoABase64(JSON.stringify(datos, null, 2)), 'panel: actualizar contenido (' + fecha + ')');
+      setEstadoPublicar('contenido.json publicado ✓');
+
+      const total = archivosPendientes.size;
+      let n = 0;
+      for (const [nombre, info] of archivosPendientes) {
+        n++;
+        setEstadoPublicar('Subiendo archivo ' + n + ' de ' + total + ': ' + nombre + '…');
+        const bytes = new Uint8Array(await info.blob.arrayBuffer());
+        await subirRuta(info.carpeta + '/' + nombre, bytesABase64(bytes), 'panel: subir ' + nombre + ' (' + fecha + ')');
+        URL.revokeObjectURL(info.url);
+        archivosPendientes.delete(nombre);
+      }
+
+      publicando = false;
+      sucio = false;
+      const sucioEl = document.getElementById('estadoSucio');
+      if (sucioEl) sucioEl.hidden = true;
+      setEstadoPublicar('✓ Publicado correctamente. GitHub Pages actualizará la web en ~1 minuto (recarga con Ctrl+F5).');
+      toast('✓ Publicado en la web. En ~1 minuto se ven los cambios.');
+      render();
+    } catch (e) {
+      publicando = false;
+      setEstadoPublicar('✗ Error al publicar: ' + e.message);
+      toast('Error al publicar: ' + e.message, true);
+      render();
+    }
+  }
+
   // ---------- Eventos ----------
   function onClickAccion(btn) {
     const accion = btn.dataset.action;
@@ -626,6 +783,8 @@
 
     if (accion === 'guardar-directo') { guardarDirecto(); return; }
 
+    if (accion === 'publicar') { publicar(); return; }
+
     if (accion === 'descartar') {
       if (confirm('Se descartarán todos los cambios no guardados. ¿Continuar?')) location.reload();
       return;
@@ -656,8 +815,21 @@
     cfg.correo = correo;
     cfg.sal = generarSal();
     cfg.correoHash = await hashCredenciales(cfg.sal, correo, pass1);
-    descargar(new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' }), 'admin-config.json');
-    toast('Credenciales actualizadas. Sube admin-config.json a la raíz del hosting.');
+
+    const configBlob = () => new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' });
+    if (obtenerToken() && cfg.github && cfg.github.owner) {
+      try {
+        await subirRuta('admin-config.json', textoABase64(JSON.stringify(cfg, null, 2)), 'panel: actualizar credenciales del panel');
+        toast('✓ Credenciales actualizadas y admin-config.json publicado en GitHub.');
+        return;
+      } catch (e) {
+        descargar(configBlob(), 'admin-config.json');
+        toast('Credenciales actualizadas, pero no se pudo publicar admin-config.json (' + e.message + '). Se descargó para subirlo manualmente.', true);
+        return;
+      }
+    }
+    descargar(configBlob(), 'admin-config.json');
+    toast('Credenciales actualizadas. Sube admin-config.json a la raíz del hosting (o añade un token de GitHub para publicarlo automático).');
   }
 
   function bindEventos() {
@@ -680,13 +852,24 @@
     // Campos de texto: actualizar datos en vivo
     $('#panelContenido').addEventListener('input', (e) => {
       const inp = e.target.closest('[data-path]');
-      if (!inp) return;
-      setPath(datos, inp.dataset.path, inp.value);
-      marcarSucio();
+      if (inp) {
+        setPath(datos, inp.dataset.path, inp.value);
+        marcarSucio();
+        return;
+      }
+      if (e.target.id === 'ghToken') {
+        const chk = document.getElementById('ghRecordar');
+        guardarToken(e.target.value.trim(), !!(chk && chk.checked));
+      }
     });
 
-    // Selects
+    // Selects y casillas
     $('#panelContenido').addEventListener('change', (e) => {
+      if (e.target.id === 'ghRecordar') {
+        guardarToken(obtenerToken(), e.target.checked);
+        toast(e.target.checked ? 'Token recordado en este navegador.' : 'Token solo para esta sesión.');
+        return;
+      }
       const sel = e.target.closest('select[data-path]');
       if (!sel) return;
       setPath(datos, sel.dataset.path, sel.value);

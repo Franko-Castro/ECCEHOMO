@@ -38,26 +38,38 @@ Las flechas ↑ ↓ reordenan los elementos, y la ✕ elimina. El texto
 
 ---
 
-## Cómo publicar los cambios (hosting cPanel)
+## Cómo publicar los cambios
 
-1. En la pestaña **Guardar y Publicar** pulsa **Descargar todo (JSON + archivos)**.
-   Se descarga `contenido.json` y, si subiste imágenes o PDFs nuevos, también
-   esos archivos.
-2. Entra al **gestor de archivos** de cPanel y ve a la carpeta raíz del sitio.
-3. Sube `contenido.json` **reemplazando** el anterior.
-4. Sube las imágenes nuevas a la carpeta `imagenes/` y los PDF a `documentos/`.
-5. Abre tu web y recarga con **Ctrl + F5**.
+### Opción A — Botón "Publicar en la web" (la más fácil)
 
-Si solo cambiaste textos o precios (sin archivos nuevos), el paso 4 no hace
-falta: solo sube `contenido.json`.
+En la pestaña **Guardar y Publicar**:
 
-### Si publicas con GitHub Pages (este repositorio)
+1. Pega tu **token de GitHub** en el campo indicado (opcionalmente márcalo como
+   recordado para no pegarlo cada vez).
+2. Pulsa **🚀 Publicar en la web**.
+3. El panel sube `contenido.json` (y las imágenes/PDFs nuevos) directamente al
+   repositorio, y **GitHub Pages actualiza la web automáticamente en ~1 minuto**.
 
-Este proyecto tiene un workflow de GitHub Pages (`.github/workflows/static.yml`):
-cada vez que se sube un cambio a la rama `main`, la web se publica sola. En ese
-caso, el flujo del panel es el mismo, pero en el paso 3 subes los archivos al
-repositorio (por el gestor de archivos de GitHub o con Git) en vez de a cPanel:
-al hacer commit en `main`, la web se actualiza automáticamente.
+No hay que descargar ni subir nada a mano. En la misma pestaña aparece el
+estado de cada publicación.
+
+### Crear el token de GitHub (solo una vez)
+
+1. Con tu cuenta, abre **github.com/settings/tokens** y pulsa
+   **Generate new token (Fine-grained)**.
+2. En **Repository access** elige **Only select repositories** → **ECCEHOMO**.
+3. En **Account permissions** pon **Contents** → **Read and write** y genera el
+   token. Cópialo (solo se muestra una vez).
+4. Pégalo en el panel. El token se guarda **solo en tu navegador**, nunca en el
+   repositorio. Si se filtra, puedes revocarlo en la misma página de GitHub.
+
+> Sin token, el panel sigue funcionando para editar, pero no podrá publicar.
+
+### Opción B — Descarga manual (alternativa)
+
+Si prefieres subir los archivos tú (por ejemplo en cPanel), en la misma
+pestaña usa **Descargar todo (JSON + archivos)** y sube `contenido.json` a la
+raíz, las imágenes a `imagenes/` y los PDF a `documentos/`.
 
 ### Truco para quien trabaja en local
 
@@ -73,8 +85,10 @@ archivos nuevos directamente en la carpeta que elijas, sin descargas manuales.
 1. En cualquier campo de imagen, pulsa **Subir imagen** y elige el archivo.
 2. El panel le pone un nombre limpio (sin espacios ni acentos) y lo muestra en
    la lista de **archivos pendientes** en la pestaña **Guardar y Publicar**.
-3. Recuerda subir esos archivos junto con `contenido.json` a la carpeta
-   correspondiente (`imagenes/` o `documentos/`).
+3. Los archivos quedan en la lista de **archivos pendientes** (pestaña
+   **Guardar y Publicar**). Con el botón **🚀 Publicar en la web** se suben
+   solos; si usas la descarga manual, súbelos junto con `contenido.json` a la
+   carpeta correspondiente (`imagenes/` o `documentos/`).
 
 ---
 
@@ -83,6 +97,9 @@ archivos nuevos directamente en la carpeta que elijas, sin descargas manuales.
 - El login protege contra accesos casuales, pero **no es seguridad de servidor**:
   al ser un sitio estático, el código del panel es visible para cualquiera.
 - Usa una **contraseña fuerte** y cámbiala desde la pestaña **Cuenta**.
+- El **token de GitHub** da poder real sobre el repositorio: usa uno
+  *fine-grained* limitado a ECCEHOMO con permiso solo de *Contents: Read and
+  write*, guárdalo en tu navegador personal y revócalo si crees que se filtró.
 - Si quieres protección real, usa la **Privacidad de directorios (.htaccess)**
   de cPanel sobre la carpeta del sitio o sobre `admin.html` (requiere
   contraseña del servidor, distinta a la del panel).

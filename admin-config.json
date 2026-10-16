@@ -3,5 +3,10 @@
   "sal": "f2c52ec7bc2ef93ef05d922d7f90f951",
   "correo": "eccehomorestaurante@gmail.com",
   "correoHash": "71eea030bb82b4d9ff61eeaffdb0d95c89209ec98e1cc73b48f96facae4b9ecd",
-  "nota": "correoHash = SHA-256(sal + correo minusculas + '|' + contrasena). Las credenciales se cambian desde el panel (pestaña Cuenta) y este archivo se vuelve a descargar para subirlo al hosting."
+  "nota": "correoHash = SHA-256(sal + correo minusculas + '|' + contrasena). Las credenciales se cambian desde el panel (pestaña Cuenta) y este archivo se vuelve a descargar para subirlo al hosting.",
+  "github": {
+    "owner": "Franko-Castro",
+    "repo": "ECCEHOMO",
+    "rama": "main"
+  }
 }
