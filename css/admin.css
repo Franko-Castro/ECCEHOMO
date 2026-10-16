@@ -608,6 +608,24 @@ h4 {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 820px) {
+  .app-header {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .app-header-titulo img {
+    height: 34px;
+  }
+
+  .app-header-titulo strong {
+    font-size: 0.9rem;
+  }
+
+  .app-header-acciones .btn {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
   .app-body {
     flex-direction: column;
   }
@@ -616,7 +634,16 @@ h4 {
     width: 100%;
     display: flex;
     overflow-x: auto;
-    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 4px;
+    position: sticky;
+    top: 54px;
+    z-index: 40;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .app-nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
   }
 
   .app-nav button {
@@ -624,18 +651,152 @@ h4 {
     white-space: nowrap;
     border-left: none;
     border-bottom: 3px solid transparent;
-    padding: 12px 16px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
   }
 
   .app-nav button.activo {
     border-bottom-color: var(--gold);
+    background: rgba(212, 175, 55, 0.15);
   }
 
   .app-panel {
-    padding: 20px 16px 80px;
+    padding: 16px 14px 90px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .app-panel h2 {
+    font-size: 1.6rem;
+  }
+
+  .subtitulo {
+    font-size: 1.15rem;
+    margin: 20px 0 10px;
   }
 
   .campos-fila {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .img-fila {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .img-preview {
+    width: 100%;
+    height: 140px;
+  }
+
+  .file-fila {
+    width: 100%;
+  }
+
+  .file-fila .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .item-cab {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .orden {
+    margin-left: auto;
+  }
+
+  .orden button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .guardar-acciones .btn {
+    width: 100%;
+  }
+
+  .archivos-pendientes li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .archivos-pendientes li .btn {
+    align-self: flex-end;
+  }
+
+  .toast {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    max-width: none;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 24px 18px;
+    border-radius: 14px;
+  }
+
+  .login-logo {
+    height: 60px;
+  }
+
+  .login-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .app-header-titulo {
+    justify-content: flex-start;
+  }
+
+  .app-header-acciones {
+    display: flex;
+    width: 100%;
+  }
+
+  .app-header-acciones .btn {
+    flex: 1;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 0.78rem;
+  }
+
+  .app-nav {
+    top: 86px;
+  }
+
+  .app-panel h2 {
+    font-size: 1.4rem;
+  }
+
+  .lista-item,
+  .sublista-item {
+    padding: 12px;
+  }
+
+  .campo input[type='text'],
+  .campo input[type='email'],
+  .campo input[type='password'],
+  .campo textarea,
+  .campo select {
+    font-size: 16px; /* Evita zoom automático en iOS Safari */
+    padding: 8px 10px;
+  }
+
+  .pasos {
+    padding: 12px 14px;
   }
 }

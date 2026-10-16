@@ -567,13 +567,22 @@
         (s.id === seccionActual ? ' class="activo"' : '') +
         '>' + esc(s.titulo) + '</button>'
     ).join('');
+    const btnActivo = $('#appNav button.activo');
+    if (btnActivo && typeof btnActivo.scrollIntoView === 'function') {
+      btnActivo.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
   }
 
-  function render() {
+  function render(mantenerScroll) {
+    const scrollPrevio = mantenerScroll ? window.scrollY : 0;
     renderNav();
     const s = SECCIONES.find((x) => x.id === seccionActual) || SECCIONES[0];
     $('#panelContenido').innerHTML = s.render();
-    window.scrollTo({ top: 0 });
+    if (mantenerScroll) {
+      window.scrollTo({ top: scrollPrevio });
+    } else {
+      window.scrollTo({ top: 0 });
+    }
   }
 
   // ---------- Manejo de archivos nuevos ----------
@@ -600,7 +609,7 @@
     });
     setPath(datos, inp.dataset.filePath, carpeta + '/' + nombre);
     marcarSucio();
-    render();
+    render(true);
     toast('Archivo "' + nombre + '" listo. Recuerda subirlo junto con contenido.json.');
   }
 
@@ -731,11 +740,11 @@
   }
 
   function modoPublicacion() {
-    return cfg && cfg.publicacion && cfg.publicacion.tipo === 'github' ? 'github' : 'php';
+    return 'php';
   }
 
   function urlPublicacion() {
-    return (cfg && cfg.publicacion && cfg.publicacion.url) || 'publicar.php';
+    return (cfg && cfg.publicacion && cfg.publicacion.url) || 'https://restauranteeccehomo.xo.je/publicar.php';
   }
 
   async function publicar() {
@@ -877,7 +886,7 @@
         [lista[idx + 1], lista[idx]] = [lista[idx], lista[idx + 1]];
       }
       marcarSucio();
-      render();
+      render(true);
       return;
     }
 
@@ -885,7 +894,7 @@
       const info = archivosPendientes.get(btn.dataset.nombre);
       if (info) URL.revokeObjectURL(info.url);
       archivosPendientes.delete(btn.dataset.nombre);
-      render();
+      render(true);
       return;
     }
 
@@ -1027,6 +1036,14 @@
       if (!sel) return;
       setPath(datos, sel.dataset.path, sel.value);
       marcarSucio();
+    });
+
+    // Evitar que presionar Enter dentro de un input recargue la página
+    $('#panelContenido').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'file') {
+        e.preventDefault();
+        e.target.blur();
+      }
     });
 
     // Subida de archivos (imágenes / PDF)

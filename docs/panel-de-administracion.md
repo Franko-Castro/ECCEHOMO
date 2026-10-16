@@ -8,10 +8,8 @@ precios, imágenes y PDFs) vive en el archivo **`contenido.json`**, y el panel
 
 ## Cómo entrar
 
-1. Abre `https://tu-sitio.com/admin.html` (la URL de tu página + `/admin.html`).
-2. Inicia sesión con las credenciales iniciales:
-   - **Correo:** admin@eccehomo.com
-   - **Contraseña:** Ecce2026!
+1. Abre `https://restauranteeccehomo.xo.je/admin.html`.
+2. Inicia sesión con el correo y la contraseña actuales del panel.
 3. Entra a la pestaña **Cuenta** y cambia el correo y la contraseña
    inmediatamente. Si `publicar.php` está instalado, las credenciales se
    actualizan **solitas** en el servidor; si no, se descarga un
@@ -50,7 +48,7 @@ Tu sitio vive en tu hosting (iFastNet), así que la publicación va directa al
 servidor mediante **`publicar.php`**:
 
 1. Entra al panel desde tu dominio
-   (`https://restauranteeccehomo.site.je/admin.html`).
+   (`https://restauranteeccehomo.xo.je/admin.html`).
 2. Edita lo que quieras.
 3. En **Guardar y Publicar** pulsa **🚀 Publicar en la web**.
 4. En segundos, `contenido.json` (y las imágenes/PDFs nuevos) quedan escritos en
@@ -73,23 +71,11 @@ La primera vez hay que subir el sistema al hosting (una sola vez), con el
 > está en la raíz o tu plan de hosting no tiene PHP activado (actívalo desde
 > cPanel → "Select PHP Version").
 
-> ¿Error "verificación de cookies"? El hosting (iFastNet) usa un aviso de
-> cookies la primera vez que se visita el dominio. Abre tu web una vez en el
-> navegador normal, supéralo, y vuelve a publicar.
+> ¿Error "verificación de cookies"? Abre primero la página del dominio en el
+> mismo navegador y completa la verificación del hosting. Después vuelve al
+> panel e intenta publicar de nuevo.
 
-### Opción B — Publicación vía GitHub (opcional)
-
-Si en `admin-config.json` cambias `"publicacion": { "tipo": "github" }`, el
-mismo botón sube los cambios al repositorio de GitHub y **GitHub Pages** los
-sirve en `franko-castro.github.io/ECCEHOMO` en ~1 minuto. Requiere un token de
-GitHub pegado en la pestaña **Guardar y Publicar**:
-
-1. Abre **github.com/settings/tokens** → **Generate new token (Fine-grained)**.
-2. **Repository access** → **Only select repositories** → **ECCEHOMO**.
-3. **Account permissions** → **Contents** → **Read and write** → genera el token.
-4. Pégalo en el panel (se guarda solo en tu navegador; revócalo si se filtra).
-
-### Opción C — Descarga manual (último recurso)
+### Descarga manual (último recurso)
 
 En la misma pestaña usa **Descargar todo (JSON + archivos)** y sube
 `contenido.json` a la raíz, las imágenes a `imagenes/` y los PDF a
@@ -127,9 +113,6 @@ archivos nuevos directamente en la carpeta que elijas, sin descargas manuales.
   formatos seguros (jpg, png, webp, gif, pdf) y límite de tamaño. Aun así,
   quien conozca la contraseña del panel puede publicar: es el mismo nivel de
   acceso que el login.
-- El **token de GitHub** (modo opcional) da poder sobre el repositorio: usa uno
-  *fine-grained* limitado a ECCEHOMO con permiso solo de *Contents: Read and
-  write*, guárdalo en tu navegador personal y revócalo si crees que se filtró.
 - Si quieres protección real, usa la **Privacidad de directorios (.htaccess)**
   de cPanel sobre la carpeta del sitio o sobre `admin.html` (requiere
   contraseña del servidor, distinta a la del panel).
