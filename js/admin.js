@@ -77,6 +77,8 @@
 
   const CREDENCIALES_INICIALES = { correo: 'admin@eccehomo.com', pass: 'Ecce2026!' };
   const CLAVE_SESION = 'eccehomo_admin_sesion';
+  const CLAVE_SESION_CORREO = 'eccehomo_admin_correo';
+  const CLAVE_SESION_CLAVE = 'eccehomo_admin_clave';
   const DURACION_SESION = 12 * 60 * 60 * 1000; // 12 horas
   const puedeEscribir = typeof window.showDirectoryPicker === 'function';
 
@@ -102,6 +104,28 @@
 
   function hashCredenciales(sal, correo, pass) {
     return sha256Hex(sal + String(correo).trim().toLowerCase() + '|' + pass);
+  }
+
+  // Credenciales del panel guardadas en la sesión: se usan para autenticar
+  // la publicación en publicar.php (el servidor las valida contra admin-config.json).
+  function guardarCredencialesSesion(correo, clave) {
+    sessionStorage.setItem(CLAVE_SESION_CORREO, String(correo).trim());
+    sessionStorage.setItem(CLAVE_SESION_CLAVE, String(clave));
+  }
+
+  function borrarCredencialesSesion() {
+    sessionStorage.removeItem(CLAVE_SESION_CORREO);
+    sessionStorage.removeItem(CLAVE_SESION_CLAVE);
+  }
+
+  function obtenerCredencialesPublicacion() {
+    const correo = sessionStorage.getItem(CLAVE_SESION_CORREO) || cfg.correo || '';
+    let clave = sessionStorage.getItem(CLAVE_SESION_CLAVE) || '';
+    if (!clave) {
+      clave = window.prompt('Contraseña del panel para publicar (se guarda solo en esta sesión):') || '';
+      if (clave) sessionStorage.setItem(CLAVE_SESION_CLAVE, clave);
+    }
+    return { correo: correo, clave: clave };
   }
 
   async function cargarJSON(url) {
@@ -445,14 +469,18 @@
       '<button type="button" class="btn btn-primario" data-action="guardar-credenciales">Guardar credenciales</button>' +
       '<div class="aviso">La contraseña no se guarda en texto plano: se almacena como un código cifrado (hash) en admin-config.json. Aun así, como el sitio es estático, usa una contraseña fuerte y no la compartas.</div>' +
       '<div class="pasos"><h3>Después de cambiar las credenciales</h3><ol>' +
-        '<li>Se descargará un archivo <b>admin-config.json</b> nuevo.</li>' +
-        '<li>Súbelo a la raíz de tu hosting (reemplazando el anterior) con el gestor de archivos de cPanel.</li>' +
+        (modoPublicacion() === 'php'
+          ? '<li>Se publica <b>admin-config.json</b> automáticamente en el servidor: no tienes que hacer nada más.</li>' +
+            '<li>Si el servidor falla, se descargará el archivo para subirlo con el gestor de archivos de cPanel.</li>'
+          : '<li>Se descargará un archivo <b>admin-config.json</b> nuevo.</li>' +
+            '<li>Súbelo a la raíz de tu hosting (reemplazando el anterior) con el gestor de archivos de cPanel.</li>') +
       '</ol></div>'
     );
   }
 
   function seccionGuardar() {
     const pend = Array.from(archivosPendientes.entries());
+    const esGithub = modoPublicacion() === 'github';
     return (
       '<h2>Guardar y Publicar</h2>' +
       '<p class="seccion-ayuda">Última edición del contenido: <b>' + esc(datos.actualizado || 'sin fecha') + '</b></p>' +
@@ -469,26 +497,35 @@
           '</ul>'
         : '<p class="seccion-ayuda">No has subido imágenes ni PDFs nuevos en esta sesión. Si solo cambiaste textos o precios, no hay archivos pendientes.</p>') +
 
-      '<h3 class="subtitulo">Publicación directa en la web (GitHub Pages)</h3>' +
-      '<div class="campo"><span>Token de GitHub</span>' +
-        '<input type="password" id="ghToken" placeholder="ghp_... o github_pat_..." autocomplete="off" value="' + esc(obtenerToken()) + '" />' +
-        '<small>Se guarda solo en este navegador. Nunca se sube al repositorio.</small>' +
-      '</div>' +
-      '<label class="recordar-token"><input type="checkbox" id="ghRecordar"' + (tokenEnLocal() ? ' checked' : '') + ' /> Recordar el token en este navegador</label>' +
+      (esGithub
+        ? '<h3 class="subtitulo">Publicación directa en la web (GitHub Pages)</h3>' +
+            '<div class="campo"><span>Token de GitHub</span>' +
+              '<input type="password" id="ghToken" placeholder="ghp_... o github_pat_..." autocomplete="off" value="' + esc(obtenerToken()) + '" />' +
+              '<small>Se guarda solo en este navegador. Nunca se sube al repositorio.</small>' +
+            '</div>' +
+            '<label class="recordar-token"><input type="checkbox" id="ghRecordar"' + (tokenEnLocal() ? ' checked' : '') + ' /> Recordar el token en este navegador</label>'
+        : '<h3 class="subtitulo">Publicación directa en la web</h3>' +
+            '<div class="aviso">Al pulsar <b>🚀 Publicar en la web</b>, los cambios (textos, precios, imágenes y PDF) se suben directo a tu dominio y la página queda actualizada al instante. Se usa tu correo y contraseña del panel: sin tokens ni descargas.</div>' +
+            '<div class="campo"><span>Servidor de publicación</span>' +
+              '<input type="text" value="' + esc(urlPublicacion()) + '" disabled />' +
+              '<small>publicar.php en la raíz de tu hosting (configurable en admin-config.json).</small>' +
+            '</div>') +
       '<div class="guardar-acciones">' +
         '<button type="button" class="btn btn-primario" data-action="publicar"' + (publicando ? ' disabled' : '') + '>' +
           (publicando ? '⏳ Publicando…' : '🚀 Publicar en la web') +
         '</button>' +
       '</div>' +
       '<div class="publicar-estado' + (publicarMensaje ? '' : ' vacio') + '" id="publicarEstado">' +
-        esc(publicarMensaje || 'Al publicar, GitHub Pages actualizará la web automáticamente en ~1 minuto.') +
+        esc(publicarMensaje || (esGithub ? 'Al publicar, GitHub Pages actualizará la web automáticamente en ~1 minuto.' : 'Al publicar, los cambios aparecerán en tu web al instante.')) +
       '</div>' +
-      '<div class="pasos"><h3>Crear el token de GitHub (solo una vez)</h3><ol>' +
-        '<li>Con tu cuenta, abre <b>github.com/settings/tokens</b> y pulsa <b>Generate new token (Fine-grained)</b>.</li>' +
-        '<li>En <b>Repository access</b> elige <b>Only select repositories</b> y selecciona <b>ECCEHOMO</b>.</li>' +
-        '<li>En <b>Account permissions</b> pon <b>Contents</b> → <b>Read and write</b> y genera el token.</li>' +
-        '<li>Copia el token y pégalo arriba (opcionalmente márcalo como recordado).</li>' +
-      '</ol></div>' +
+      (esGithub
+        ? '<div class="pasos"><h3>Crear el token de GitHub (solo una vez)</h3><ol>' +
+            '<li>Con tu cuenta, abre <b>github.com/settings/tokens</b> y pulsa <b>Generate new token (Fine-grained)</b>.</li>' +
+            '<li>En <b>Repository access</b> elige <b>Only select repositories</b> y selecciona <b>ECCEHOMO</b>.</li>' +
+            '<li>En <b>Account permissions</b> pon <b>Contents</b> → <b>Read and write</b> y genera el token.</li>' +
+            '<li>Copia el token y pégalo arriba (opcionalmente márcalo como recordado).</li>' +
+          '</ol></div>'
+        : '') +
 
       '<h3 class="subtitulo">Alternativa: descarga manual</h3>' +
       '<div class="guardar-acciones">' +
@@ -693,46 +730,43 @@
     if (el) el.textContent = txt;
   }
 
+  function modoPublicacion() {
+    return cfg && cfg.publicacion && cfg.publicacion.tipo === 'github' ? 'github' : 'php';
+  }
+
+  function urlPublicacion() {
+    return (cfg && cfg.publicacion && cfg.publicacion.url) || 'publicar.php';
+  }
+
   async function publicar() {
     if (publicando) return;
-    if (!obtenerToken()) {
-      toast('Pega tu token de GitHub en el campo de arriba para poder publicar.', true);
-      const c = document.getElementById('ghToken');
-      if (c) c.focus();
-      return;
-    }
-    if (!cfg.github || !cfg.github.owner || !cfg.github.repo) {
-      toast('Falta configurar "github" (owner/repo) en admin-config.json.', true);
-      return;
+    const modo = modoPublicacion();
+
+    if (modo === 'github') {
+      if (!obtenerToken()) {
+        toast('Pega tu token de GitHub en el campo de arriba para poder publicar.', true);
+        const c = document.getElementById('ghToken');
+        if (c) c.focus();
+        return;
+      }
+      if (!cfg.github || !cfg.github.owner || !cfg.github.repo) {
+        toast('Falta configurar "github" (owner/repo) en admin-config.json.', true);
+        return;
+      }
     }
 
     publicando = true;
     render();
 
     try {
-      const fecha = new Date().toISOString().slice(0, 10);
-
-      setEstadoPublicar('Subiendo contenido.json…');
-      await subirRuta('contenido.json', textoABase64(JSON.stringify(datos, null, 2)), 'panel: actualizar contenido (' + fecha + ')');
-      setEstadoPublicar('contenido.json publicado ✓');
-
-      const total = archivosPendientes.size;
-      let n = 0;
-      for (const [nombre, info] of archivosPendientes) {
-        n++;
-        setEstadoPublicar('Subiendo archivo ' + n + ' de ' + total + ': ' + nombre + '…');
-        const bytes = new Uint8Array(await info.blob.arrayBuffer());
-        await subirRuta(info.carpeta + '/' + nombre, bytesABase64(bytes), 'panel: subir ' + nombre + ' (' + fecha + ')');
-        URL.revokeObjectURL(info.url);
-        archivosPendientes.delete(nombre);
-      }
+      const mensajeOk = modo === 'github' ? await publicarGithub() : await publicarPhp();
 
       publicando = false;
       sucio = false;
       const sucioEl = document.getElementById('estadoSucio');
       if (sucioEl) sucioEl.hidden = true;
-      setEstadoPublicar('✓ Publicado correctamente. GitHub Pages actualizará la web en ~1 minuto (recarga con Ctrl+F5).');
-      toast('✓ Publicado en la web. En ~1 minuto se ven los cambios.');
+      setEstadoPublicar(mensajeOk);
+      toast('✓ Publicado en la web.');
       render();
     } catch (e) {
       publicando = false;
@@ -740,6 +774,88 @@
       toast('Error al publicar: ' + e.message, true);
       render();
     }
+  }
+
+  async function publicarGithub() {
+    const fecha = new Date().toISOString().slice(0, 10);
+
+    setEstadoPublicar('Subiendo contenido.json…');
+    await subirRuta('contenido.json', textoABase64(JSON.stringify(datos, null, 2)), 'panel: actualizar contenido (' + fecha + ')');
+    setEstadoPublicar('contenido.json publicado ✓');
+
+    const total = archivosPendientes.size;
+    let n = 0;
+    for (const [nombre, info] of archivosPendientes) {
+      n++;
+      setEstadoPublicar('Subiendo archivo ' + n + ' de ' + total + ': ' + nombre + '…');
+      const bytes = new Uint8Array(await info.blob.arrayBuffer());
+      await subirRuta(info.carpeta + '/' + nombre, bytesABase64(bytes), 'panel: subir ' + nombre + ' (' + fecha + ')');
+      URL.revokeObjectURL(info.url);
+      archivosPendientes.delete(nombre);
+    }
+
+    return '✓ Publicado correctamente. GitHub Pages actualizará la web en ~1 minuto (recarga con Ctrl+F5).';
+  }
+
+  async function publicarPhp() {
+    const creds = obtenerCredencialesPublicacion();
+    if (!creds.correo || !creds.clave) {
+      throw new Error('Faltan correo o contraseña del panel para publicar.');
+    }
+
+    const archivos = [];
+    for (const [nombre, info] of archivosPendientes) {
+      const bytes = new Uint8Array(await info.blob.arrayBuffer());
+      archivos.push({ ruta: info.carpeta + '/' + nombre, datos: bytesABase64(bytes) });
+    }
+
+    setEstadoPublicar(
+      archivos.length ? 'Subiendo contenido y ' + archivos.length + ' archivo(s) al servidor…' : 'Subiendo contenido al servidor…'
+    );
+
+    let r;
+    try {
+      r = await fetch(urlPublicacion(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          correo: creds.correo,
+          clave: creds.clave,
+          contenido: JSON.stringify(datos, null, 2),
+          archivos: archivos
+        })
+      });
+    } catch (e) {
+      throw new Error(
+        'No se pudo contactar con el servidor de publicación (' + e.message + '). Revisa "publicacion.url" en admin-config.json.'
+      );
+    }
+
+    const texto = await r.text();
+    let j = null;
+    try { j = JSON.parse(texto); } catch (e) { j = null; }
+
+    if (!j) {
+      if (texto.indexOf('__test') >= 0 || texto.indexOf('cookies.html') >= 0 || texto.indexOf('aes.js') >= 0) {
+        throw new Error(
+          'El servidor respondió con la verificación de cookies del hosting. Abre tu web una vez en el navegador (supera el aviso) y vuelve a publicar.'
+        );
+      }
+      throw new Error('El servidor no devolvió JSON (HTTP ' + r.status + '). ¿Se subió publicar.php a la raíz del sitio?');
+    }
+
+    if (!j.ok) {
+      if (r.status === 401) {
+        borrarCredencialesSesion();
+        throw new Error((j.error || 'Correo o contraseña incorrectos.') + ' Se pidió la contraseña de nuevo al próximo intento.');
+      }
+      throw new Error(j.error || 'Error HTTP ' + r.status);
+    }
+
+    for (const [nombre, info] of archivosPendientes) URL.revokeObjectURL(info.url);
+    archivosPendientes.clear();
+
+    return '✓ Publicado en tu dominio. Los cambios ya están en línea (recarga con Ctrl+F5).';
   }
 
   // ---------- Eventos ----------
@@ -816,10 +932,24 @@
     cfg.sal = generarSal();
     cfg.correoHash = await hashCredenciales(cfg.sal, correo, pass1);
 
-    const configBlob = () => new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' });
+    const configTexto = JSON.stringify(cfg, null, 2);
+    const configBlob = () => new Blob([configTexto], { type: 'application/json' });
+
+    if (modoPublicacion() === 'php') {
+      try {
+        await publicarConfigPhp(configTexto);
+        guardarCredencialesSesion(correo, pass1);
+        toast('✓ Credenciales actualizadas y publicadas en el servidor.');
+      } catch (e) {
+        descargar(configBlob(), 'admin-config.json');
+        toast('Credenciales actualizadas, pero no se pudo publicar admin-config.json (' + e.message + '). Se descargó para subirlo manualmente.', true);
+      }
+      return;
+    }
+
     if (obtenerToken() && cfg.github && cfg.github.owner) {
       try {
-        await subirRuta('admin-config.json', textoABase64(JSON.stringify(cfg, null, 2)), 'panel: actualizar credenciales del panel');
+        await subirRuta('admin-config.json', textoABase64(configTexto), 'panel: actualizar credenciales del panel');
         toast('✓ Credenciales actualizadas y admin-config.json publicado en GitHub.');
         return;
       } catch (e) {
@@ -830,6 +960,29 @@
     }
     descargar(configBlob(), 'admin-config.json');
     toast('Credenciales actualizadas. Sube admin-config.json a la raíz del hosting (o añade un token de GitHub para publicarlo automático).');
+  }
+
+  async function publicarConfigPhp(configTexto) {
+    const creds = obtenerCredencialesPublicacion();
+    if (!creds.correo || !creds.clave) {
+      throw new Error('Faltan credenciales del panel para publicar.');
+    }
+    let r;
+    try {
+      r = await fetch(urlPublicacion(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo: creds.correo, clave: creds.clave, config: configTexto })
+      });
+    } catch (e) {
+      throw new Error('No se pudo contactar con el servidor (' + e.message + ').');
+    }
+    let j = null;
+    try { j = await r.json(); } catch (e) { j = null; }
+    if (!j || !j.ok) {
+      if (r.status === 401) borrarCredencialesSesion();
+      throw new Error((j && j.error) || 'HTTP ' + r.status);
+    }
   }
 
   function bindEventos() {
@@ -886,6 +1039,7 @@
     // Salir
     $('#btnSalir').addEventListener('click', () => {
       sessionStorage.removeItem(CLAVE_SESION);
+      borrarCredencialesSesion();
       location.reload();
     });
   }
@@ -917,6 +1071,7 @@
       const h = await hashCredenciales(cfg.sal, correo, pass);
       if (h === cfg.correoHash) {
         sessionStorage.setItem(CLAVE_SESION, String(Date.now() + DURACION_SESION));
+        guardarCredencialesSesion(correo, pass);
         $('#loginError').hidden = true;
         mostrarApp();
       } else {
@@ -948,6 +1103,7 @@
     if (exp > Date.now()) {
       mostrarApp();
     } else {
+      borrarCredencialesSesion();
       try {
         const hDefecto = await hashCredenciales(cfg.sal, CREDENCIALES_INICIALES.correo, CREDENCIALES_INICIALES.pass);
         if (hDefecto === cfg.correoHash) $('#loginHint').hidden = false;

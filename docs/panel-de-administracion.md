@@ -13,8 +13,9 @@ precios, imágenes y PDFs) vive en el archivo **`contenido.json`**, y el panel
    - **Correo:** admin@eccehomo.com
    - **Contraseña:** Ecce2026!
 3. Entra a la pestaña **Cuenta** y cambia el correo y la contraseña
-   inmediatamente. Se descargará un archivo `admin-config.json` nuevo: súbelo a
-   la raíz del hosting reemplazando el anterior.
+   inmediatamente. Si `publicar.php` está instalado, las credenciales se
+   actualizan **solitas** en el servidor; si no, se descarga un
+   `admin-config.json` nuevo que deberás subir a la raíz del hosting.
 
 > La sesión dura 12 horas; después vuelves a iniciar sesión.
 
@@ -31,7 +32,7 @@ precios, imágenes y PDFs) vive en el archivo **`contenido.json`**, y el panel
 | **Galería** | Fotos de la galería (agregar, quitar, reordenar) y sus descripciones |
 | **Testimonios y Pie** | Opiniones, teléfono, dirección, copyright y número de WhatsApp |
 | **Cuenta** | Correo y contraseña del panel |
-| **Guardar y Publicar** | Descargar los cambios para subirlos al hosting |
+| **Guardar y Publicar** | Publicar los cambios en la web con un botón (o descargarlos) |
 
 Las flechas ↑ ↓ reordenan los elementos, y la ✕ elimina. El texto
 "**● Cambios sin guardar**" avisa que tienes ediciones pendientes.
@@ -40,36 +41,59 @@ Las flechas ↑ ↓ reordenan los elementos, y la ✕ elimina. El texto
 
 ## Cómo publicar los cambios
 
-### Opción A — Botón "Publicar en la web" (la más fácil)
+El panel tiene **publicación directa**: terminas de editar, pulsas un botón y la
+web queda actualizada al instante. Sin descargas ni subidas manuales.
 
-En la pestaña **Guardar y Publicar**:
+### Opción A — Botón "Publicar en la web" (la estándar aquí)
 
-1. Pega tu **token de GitHub** en el campo indicado (opcionalmente márcalo como
-   recordado para no pegarlo cada vez).
-2. Pulsa **🚀 Publicar en la web**.
-3. El panel sube `contenido.json` (y las imágenes/PDFs nuevos) directamente al
-   repositorio, y **GitHub Pages actualiza la web automáticamente en ~1 minuto**.
+Tu sitio vive en tu hosting (iFastNet), así que la publicación va directa al
+servidor mediante **`publicar.php`**:
 
-No hay que descargar ni subir nada a mano. En la misma pestaña aparece el
-estado de cada publicación.
+1. Entra al panel desde tu dominio
+   (`https://restauranteeccehomo.site.je/admin.html`).
+2. Edita lo que quieras.
+3. En **Guardar y Publicar** pulsa **🚀 Publicar en la web**.
+4. En segundos, `contenido.json` (y las imágenes/PDFs nuevos) quedan escritos en
+   el servidor y la web muestra los cambios (recarga con Ctrl+F5).
 
-### Crear el token de GitHub (solo una vez)
+La publicación se autentica con **tu correo y contraseña del panel**: no hay
+tokens que crear ni guardar. Si cambias las credenciales en la pestaña
+**Cuenta**, el propio botón las actualiza en el servidor.
 
-1. Con tu cuenta, abre **github.com/settings/tokens** y pulsa
-   **Generate new token (Fine-grained)**.
-2. En **Repository access** elige **Only select repositories** → **ECCEHOMO**.
-3. En **Account permissions** pon **Contents** → **Read and write** y genera el
-   token. Cópialo (solo se muestra una vez).
-4. Pégalo en el panel. El token se guarda **solo en tu navegador**, nunca en el
-   repositorio. Si se filtra, puedes revocarlo en la misma página de GitHub.
+#### Instalación única en el hosting
 
-> Sin token, el panel sigue funcionando para editar, pero no podrá publicar.
+La primera vez hay que subir el sistema al hosting (una sola vez), con el
+**gestor de archivos de cPanel** o por FTP, a la raíz del sitio:
 
-### Opción B — Descarga manual (alternativa)
+- `admin.html`, `js/admin.js`, `js/content.js`, `js/main.js`, `css/admin.css`
+- `contenido.json`, `admin-config.json`
+- **`publicar.php`** ← es el que hace la magia
 
-Si prefieres subir los archivos tú (por ejemplo en cPanel), en la misma
-pestaña usa **Descargar todo (JSON + archivos)** y sube `contenido.json` a la
-raíz, las imágenes a `imagenes/` y los PDF a `documentos/`.
+> ¿Error "El servidor no devolvió JSON"? Es casi seguro que `publicar.php` no
+> está en la raíz o tu plan de hosting no tiene PHP activado (actívalo desde
+> cPanel → "Select PHP Version").
+
+> ¿Error "verificación de cookies"? El hosting (iFastNet) usa un aviso de
+> cookies la primera vez que se visita el dominio. Abre tu web una vez en el
+> navegador normal, supéralo, y vuelve a publicar.
+
+### Opción B — Publicación vía GitHub (opcional)
+
+Si en `admin-config.json` cambias `"publicacion": { "tipo": "github" }`, el
+mismo botón sube los cambios al repositorio de GitHub y **GitHub Pages** los
+sirve en `franko-castro.github.io/ECCEHOMO` en ~1 minuto. Requiere un token de
+GitHub pegado en la pestaña **Guardar y Publicar**:
+
+1. Abre **github.com/settings/tokens** → **Generate new token (Fine-grained)**.
+2. **Repository access** → **Only select repositories** → **ECCEHOMO**.
+3. **Account permissions** → **Contents** → **Read and write** → genera el token.
+4. Pégalo en el panel (se guarda solo en tu navegador; revócalo si se filtra).
+
+### Opción C — Descarga manual (último recurso)
+
+En la misma pestaña usa **Descargar todo (JSON + archivos)** y sube
+`contenido.json` a la raíz, las imágenes a `imagenes/` y los PDF a
+`documentos/`.
 
 ### Truco para quien trabaja en local
 
@@ -97,7 +121,13 @@ archivos nuevos directamente en la carpeta que elijas, sin descargas manuales.
 - El login protege contra accesos casuales, pero **no es seguridad de servidor**:
   al ser un sitio estático, el código del panel es visible para cualquiera.
 - Usa una **contraseña fuerte** y cámbiala desde la pestaña **Cuenta**.
-- El **token de GitHub** da poder real sobre el repositorio: usa uno
+- `publicar.php` **sí valida en el servidor** correo y contraseña (hash con sal)
+  antes de escribir nada, y solo permite escribir `contenido.json`,
+  `admin-config.json` y archivos dentro de `imagenes/` o `documentos/` con
+  formatos seguros (jpg, png, webp, gif, pdf) y límite de tamaño. Aun así,
+  quien conozca la contraseña del panel puede publicar: es el mismo nivel de
+  acceso que el login.
+- El **token de GitHub** (modo opcional) da poder sobre el repositorio: usa uno
   *fine-grained* limitado a ECCEHOMO con permiso solo de *Contents: Read and
   write*, guárdalo en tu navegador personal y revócalo si crees que se filtró.
 - Si quieres protección real, usa la **Privacidad de directorios (.htaccess)**
@@ -114,7 +144,8 @@ archivos nuevos directamente en la carpeta que elijas, sin descargas manuales.
 | `contenido.json` | Todos los textos, platos, precios, imágenes y PDFs que se muestran en la web |
 | `js/content.js` | Aplica `contenido.json` al HTML al cargar la página |
 | `admin.html` + `js/admin.js` + `css/admin.css` | El panel de administración |
-| `admin-config.json` | Correo y hash de la contraseña del panel |
+| `admin-config.json` | Correo y hash de la contraseña del panel, y modo de publicación (`publicacion`) |
+| `publicar.php` | Endpoint que escribe los cambios del panel directamente en el hosting (sin base de datos) |
 
 **No borres `contenido.json`:** si falta, el sitio mostrará el contenido original
 embebido en `index.html` (funciona, pero pierdes los cambios publicados).

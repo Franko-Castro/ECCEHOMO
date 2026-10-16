@@ -8,5 +8,9 @@
     "owner": "Franko-Castro",
     "repo": "ECCEHOMO",
     "rama": "main"
+  },
+  "publicacion": {
+    "tipo": "php",
+    "url": "publicar.php"
   }
 }
